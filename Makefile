@@ -12,6 +12,9 @@ SRCS = src/start/main.c \
        src/start/redir_b.c \
        src/start/ft_pipe.c \
        src/start/no_fork.c \
+       src/start/redir_current.c \
+       src/start/get_redir_cur.c \
+       src/start/my_readline_cur.c \
        src/manage_var/get_env.c \
        src/manage_var/env_in_tab.c \
        src/manage_var/utils_env.c \
@@ -34,6 +37,7 @@ SRCS = src/start/main.c \
        src/utils/print_error.c \
        src/utils/other_utils.c \
        src/utils/list_basic_utils.c \
+       src/utils/lst_basic_utils.c \
        src/utils/basic_utils.c \
        src/parse/split_command.c \
        src/parse/check_syntax_un.c \
@@ -49,7 +53,6 @@ $(NAME) : $(OBJS)
 all : $(NAME)
 clean : 
 	rm -rf $(OBJS)
-	rm .redir
 fclean : clean
 	rm -rf $(NAME)
 re : fclean all

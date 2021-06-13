@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 23:35:32 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/11 18:03:26 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	init_sh_bis(t_sh *sh)
 	sh->alloue[6] = 1;
 	sh->fd_pipe[0] = 0;
 	sh->fd_pipe[1] = 0;
-	sh->fd_redir[0] = 0;
-	sh->fd_redir[1] = 0;
 	sh->code = 0;
 	sh->fils_pid = -2;
 	sh->test_exec = 0;
@@ -70,6 +68,8 @@ void	init_sh(t_sh *sh, char **tab_env)
 	init_variable(sh, tab_env);
 	transform_env_tab(sh);
 	init_sh_bis(sh);
+	sh->fd_redir[0] = 0;
+	sh->fd_redir[1] = 0;
 }
 
 void	increase_shlvl(t_sh *sh)

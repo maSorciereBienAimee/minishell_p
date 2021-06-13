@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 18:14:36 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/11 18:13:58 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	run_commande(t_sh *sh)
 		sh->redir->arg = sh->stock_redir_arg;
 		if (sh->redir->next != NULL)
 		{
-		sh->redir = sh->redir->next;
-		sh->stock_redir_arg = sh->redir->arg;
+			sh->redir = sh->redir->next;
+			sh->stock_redir_arg = sh->redir->arg;
 		}
 	}
 }

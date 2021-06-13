@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 23:34:56 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:03:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,8 @@ void    lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
 void    ft_free_list_arg_redir(t_arg_redir **lst);
 void    lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
 t_arg_redir     *ft_lstlast_arg_redir(t_arg_redir *lst);
-
+void	parent_redir_cur(t_sh *sh, int pid);
+char	**get_redir_arg(t_sh *sh, char *word);
+char	*my_readline(t_sh *sh);
+void	get_redir_cur(t_sh *sh);
 #endif

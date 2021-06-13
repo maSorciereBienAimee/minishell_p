@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/11 09:29:17 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:05:14 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	wait_exit(t_sh *sh)
 
 	close(1);
 	close(0);
-	write(2, "wait end\n",9 );
 	waitpid(sh->fils_pid, &status, 0);
 	if (WIFEXITED(status))
 		sh->code = WEXITSTATUS(status);

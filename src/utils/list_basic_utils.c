@@ -6,20 +6,12 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:17:55 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 08:26:13 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/12 14:42:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-t_arg_redir	*ft_lstlast_arg_redir(t_arg_redir *lst)
-{
-	if (!lst)
-		return (0);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
 t_redir_cur	*ft_lstlast_red(t_redir_cur *lst)
 {
 	if (!lst)
@@ -27,39 +19,6 @@ t_redir_cur	*ft_lstlast_red(t_redir_cur *lst)
 	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
-}
-
-t_actual	*ft_lstlast_cmd(t_actual *lst)
-{
-	if (!lst)
-		return (0);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-t_list_env	*ft_lstlast(t_list_env *lst)
-{
-	if (!lst)
-		return (0);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	lst_add_back_cmd(t_actual **last, t_actual *new_lst)
-{
-	t_actual	*temp;
-
-	if (!new_lst)
-		return ;
-	if (!*last)
-	{
-		*last = new_lst;
-		return ;
-	}
-	temp = ft_lstlast_cmd(*last);
-	temp->next = new_lst;
 }
 
 void	lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst)
@@ -76,6 +35,7 @@ void	lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst)
 	temp = ft_lstlast_arg_redir(*last);
 	temp->next = new_lst;
 }
+
 void	lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst)
 {
 	t_redir_cur	*temp;
@@ -89,6 +49,15 @@ void	lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst)
 	}
 	temp = ft_lstlast_red(*last);
 	temp->next = new_lst;
+}
+
+t_list_env	*ft_lstlast(t_list_env *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
 
 void	lst_add_back(t_list_env **last, t_list_env *new_lst)
@@ -106,14 +75,3 @@ void	lst_add_back(t_list_env **last, t_list_env *new_lst)
 	temp->next = new_lst;
 }
 
-int	ft_len_list(t_list_env *var)
-{
-	int	i;
-
-	while (var->next != NULL)
-	{
-		i++;
-		var = var->next;
-	}
-	return (i);
-}

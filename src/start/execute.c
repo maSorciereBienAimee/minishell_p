@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:56:31 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/11 09:25:02 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/12 15:04:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	continue_parent(t_sh *sh, pid_t pid)
 	sh->test_exec = pid;
 	signal(SIGQUIT, ptr1);
 	signal(SIGINT, ptr2);
-write(2, "wait execute \n", 14);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		sh->code = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:43:40 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 19:14:11 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/11 18:10:22 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,24 @@ void	set_new_parent(t_sh *sh, pid_t pid)
 	g_my_sig.pid_suivant = pid;
 }
 
+void	aligne_redir_current(t_sh *sh, int redir)
+{
+	int		i;
+
+	i = 0;
+	while (i < redir)
+	{
+		sh->redir->arg = sh->redir->arg->next;
+		i++;
+	}
+}
+
 void	ft_pipe(t_sh *sh, char *spl, int redir)
 {
 	char	buf[10];
 	int		status;
 	pid_t	pid;
-	int i;
 
-	i = 0;
 	pipe(sh->fd_pipe);
 	pid = fork();
 	if (pid == -1)
@@ -55,11 +65,6 @@ void	ft_pipe(t_sh *sh, char *spl, int redir)
 		if (dup2(sh->fd_pipe[0], 0) < 0)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		close(sh->fd_pipe[0]);
-		while (i < redir)
-		{
-			sh->redir->arg = sh->redir->arg->next;
-			i++;
-		}
 		sh->stock_for_pipe = sh->actu->next;
 		sh->actu = sh->stock_for_pipe;
 		boucle_minishell(sh, spl);
@@ -72,8 +77,8 @@ void	is_it_pipe(t_sh *sh, char *spl)
 {
 	int			stop;
 	t_actual	*stock;
-	int redir;
-	
+	int			redir;
+
 	redir = 0;
 	stop = 0;
 	stock = sh->actu;
