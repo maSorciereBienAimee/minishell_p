@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 12:49:24 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:36:09 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	redir_cur(t_sh *sh, char *spl)
 		if (dup2(sh->fd_redir[0], 0) < 0)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		close(sh->fd_redir[0]);
-		sh->redir->arg = sh->redir->arg->next;
+		if (sh->redir->arg->next != NULL)
+			sh->redir->arg = sh->redir->arg->next;
 	}
 	else
 			parent_redir_cur(sh, pid);

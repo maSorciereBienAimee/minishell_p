@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:03:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:14:05 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,5 @@ void	parent_redir_cur(t_sh *sh, int pid);
 char	**get_redir_arg(t_sh *sh, char *word);
 char	*my_readline(t_sh *sh);
 void	get_redir_cur(t_sh *sh);
+int     redir_cur_b(t_sh *sh, char *spl, t_actual *stock);
 #endif

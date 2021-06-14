@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 14:55:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:12:19 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	which_redir(t_sh *sh, char *spl, t_actual *temp)
 {
 	if (temp->pipe == 1)
 		return (0);
-//	if (temp->redir_cur == 1)
-//	{
-//		if (redir_cur_b(sh, spl, temp) == -1)
-//			return (-1);
-//	}
+	if (temp->redir_cur == 1)
+	{
+		if (redir_cur_b(sh, spl, temp) == -1)
+			return (-1);
+	}
 	if (temp->redir_out == 1)
 	{
 		if (redir_out_b(sh, spl, temp) == -1)
