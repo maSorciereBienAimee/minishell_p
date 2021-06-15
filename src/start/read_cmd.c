@@ -6,11 +6,12 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:02:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/15 17:46:02 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+#include "../../includes/lexer_parser.h"
 
 t_gestion_sig	g_my_sig;
 
@@ -89,6 +90,8 @@ void	get_command(t_sh *sh)
 		while (++a < 4)
 			buff[a] = 0;
 	}
+	if (start_parsing(sh->command) == -1)
+		exit(0);
 	sh->spl = ft_split_commande(sh, sh->command, ';');
 	get_redir_cur(sh);
 }
