@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/14 16:14:05 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/15 22:49:14 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,4 +154,12 @@ char	**get_redir_arg(t_sh *sh, char *word);
 char	*my_readline(t_sh *sh);
 void	get_redir_cur(t_sh *sh);
 int     redir_cur_b(t_sh *sh, char *spl, t_actual *stock);
+void	continue_boucle_cl(char *spl, int *dsb, int *i);
+int	which_case_count(char *s, int *j, int *dsb);
+int	var_exit_status(t_sh *sh, int *i);
+int	which_case(char *s, int *ij, int *dsb);
+void	init_for_fill(char *spl, int *dsb, int *ij, int i);
+void	end_fill_arg(char *s, int *ij, int *d, char **to_fill);
+void	case_exit_status(t_sh *sh, int *ij, char **to_fill);
+int	debut_fill_arg(char *s, int *ij, int *d);
 #endif

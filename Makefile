@@ -45,6 +45,8 @@ SRCS = src/start/main.c \
        src/parse/fill_arguments.c \
        src/parse/count_arg.c \
        src/parse/count_letter_arg.c \
+       src/parse/count_utils.c \
+       src/parse/fill_utils.c \
        src/parse/parse_utils.c 
 OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)

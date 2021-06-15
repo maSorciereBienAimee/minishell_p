@@ -6,22 +6,60 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 12:51:18 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/07 10:21:40 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/15 22:41:58 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
-int	var_exit_status(t_sh *sh, int *i)
+char	*which_var_count(t_sh *sh, char *spl, int *i)
 {
 	int		count;
-	char	*exit_str;
+	int		j;
+	char	*recup_var;
+	int		k;
+	char	*val;
+
+	k = -1;
+	j = 0;
+	count = 0;
+	while (is_al_num(spl[++(*i)]) == 1)
+		j++;
+	*i -= (j + 1);
+	recup_var = (char *)malloc(sizeof(char) * (j + 1));
+	if (!recup_var)
+		ft_error(sh, strerror(errno), NULL, NULL);
+	recup_var[j] = '\0';
+	while (++k < j)
+		recup_var[k] = spl[++(*i)];
+	return (recup_var);
+}
+
+int	count_letter_no_qu(t_sh *sh, char *spl, int *i)
+{
+	int		count;
+	char	*recup_var;
+	int		k;
+	char	*val;
 
 	count = 0;
-	exit_str = ft_itoa(sh->last_exit);
-	count = ft_len(exit_str);
-	free(exit_str);
-	(*i)++;
+	recup_var = which_var_count(sh, spl, i);
+	val = get_lst_value_of(sh, recup_var);
+	free(recup_var);
+	if (val != NULL)
+	{
+		k = 0;
+		while (val[k])
+		{
+			while (val[k] && val[k] == ' ')
+				k++;
+			k--;
+			while (val[++k] && val[k] != ' ')
+				count++;
+			if (val[k])
+				count++;
+		}
+	}
 	return (count);
 }
 
@@ -35,8 +73,6 @@ int	count_letter_env(t_sh *sh, char *spl, int *i)
 	k = -1;
 	j = 0;
 	count = 0;
-	if (spl[*i + 1] == '?')
-		return (var_exit_status(sh, i));
 	while (is_al_num(spl[++(*i)]) == 1)
 		j++;
 	*i -= (j + 1);
@@ -61,13 +97,21 @@ void	boucle_count_letters(t_sh *sh, char *spl, int *i, int *dsb)
 			|| spl[*i + 1] == '"' || spl[*i + 1] == '\\'))
 		dsb[4] += 0;
 	else if (spl[*i] == '$' && dsb[3] == 0)
-		dsb[4] += count_letter_env(sh, spl, i);
-	else if (spl[*i] == '"' && dsb[3] == 0 && dsb[1] % 2 == 0)
-		dsb[4] += 0;
-	else if (spl[*i] == '\'' && dsb[3] == 0 && dsb[0] % 2 == 0)
-		dsb[4] += 0;
+	{
+		if (spl[*i + 1] == '?')
+			dsb[4] += var_exit_status(sh, i);
+		else
+		{
+			if (which_case_count(spl, i, dsb) == 1)
+				dsb[4] += count_letter_no_qu(sh, spl, i);
+			if (which_case_count(spl, i, dsb) == 2)
+				dsb[4] += count_letter_env(sh, spl, i);
+			if (which_case_count(spl, i, dsb) == 3)
+				(dsb[4])++;
+		}
+	}
 	else
-		(dsb[4])++;
+		continue_boucle_cl(spl, dsb, i);
 	(*i)++;
 	check_if_in_quote(*i, spl, dsb);
 }
