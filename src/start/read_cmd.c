@@ -6,15 +6,16 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:02:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 18:00:10 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+#include "../../includes/utils.h"
 
 t_gestion_sig	g_my_sig;
 
-int	check_touche(t_sh*sh, char *b, int *j, int *i)
+int	check_touche(t_sh *sh, char *b, int *j, int *i)
 {
 	int	k;
 
@@ -66,29 +67,32 @@ int	read_quit(t_sh *sh, int a, char *buff)
 
 void	get_command(t_sh *sh)
 {
-	int		i;
-	int		j;
-	int		stop;
-	int		a;
-	char	buff[4];
+	int			ret;
+	char		*line;
+	const char	prompt[46] = "\e[1;3;40mMINISHELL\e[5;38m-\e[0;1;40m$\e[0;38m ";
 
-	i = -1;
-	j = 0;
-	stop = 0;
-	write(1, "minishell $> ", 13);
-	while (++i < 4)
-		buff[i] = 0;
-	i = 2;
-	while (stop != 1)
+	ft_putstr((char *)prompt);
+	/*if ((ret = read(g_my_sig.fd_out, &buff, 10000)) == -1)
 	{
-		a = read(g_my_sig.fd_out, &buff, 4);
-		if (read_quit(sh, a, buff) == -1)
-			return ;
-		stop = check_touche(sh, buff, &j, &i);
-		a = -1;
-		while (++a < 4)
-			buff[a] = 0;
+		perror("read");
+		return;
 	}
+	if (ret > 0 && buff[ret - 1] == '\n')
+		buff[ret - 1] = '\0';
+	else
+		buff[ret] = '\0';*/
+	if (get_next_line(STDIN_FILENO, &line) == -1)
+	{
+		perror("read:");
+		return;
+	}
+	if (read_quit(sh, ft_strlen(line), line) == -1)
+		return ;
+	sh->command = ft_strdup(line);
+	free(line);
+	if (start_parsing(sh->command) == -1)
+		return;
+	//exit(0);
 	sh->spl = ft_split_commande(sh, sh->command, ';');
 	get_redir_cur(sh);
 }

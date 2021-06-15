@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 22:38:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:15:03 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSE_H
 # include "minishell.h"
 
+int			start_parsing(char *str);
 void		analyse_command(t_sh *sh, char *spl);
 void		get_command(t_sh *sh);
 void		actual_path(t_sh *sh);

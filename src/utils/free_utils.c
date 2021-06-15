@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:35:12 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 23:36:30 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/14 16:47:23 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	my_free_bis(t_sh *sh)
 
 void	my_free(t_sh *sh)
 {
+	free(sh->path);
 	if (sh->alloue[0] == 1)
 		free(sh->path);
 	sh->alloue[0] = 0;

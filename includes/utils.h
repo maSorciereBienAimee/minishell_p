@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/14 16:14:05 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/15 16:34:49 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,27 @@ int			is_name_eq_value(char *str);
 void		print_env(t_sh *sh);
 char		*get_name(t_sh *sh, char *str);
 char		*get_value(t_sh *sh, char *str);
-void    lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
-void    ft_free_list_arg_redir(t_arg_redir **lst);
-void    lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
+void		lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
+void		ft_free_list_arg_redir(t_arg_redir **lst);
+void		lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
 t_arg_redir     *ft_lstlast_arg_redir(t_arg_redir *lst);
+<<<<<<< HEAD
 void	parent_redir_cur(t_sh *sh, int pid);
 char	**get_redir_arg(t_sh *sh, char *word);
 char	*my_readline(t_sh *sh);
 void	get_redir_cur(t_sh *sh);
 int     redir_cur_b(t_sh *sh, char *spl, t_actual *stock);
+=======
+void		parent_redir_cur(t_sh *sh, int pid);
+char		**get_redir_arg(t_sh *sh, char *word);
+char		*my_readline(t_sh *sh);
+void		get_redir_cur(t_sh *sh);
+char		*ft_strdup(const char *src);
+int			ft_strlen(const char *str);
+void		ft_putstr(char *str);
+void		ft_putstr_fd(char *str, int fd);
+char		*ft_strchr(const char *str, int c);
+char		*ft_strjoin(const char *s1, const char *s2);
+int			get_next_line(int fd, char **line);
+>>>>>>> ajout parser / invalid free a regler au process
 #endif
