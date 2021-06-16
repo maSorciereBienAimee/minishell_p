@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:16:25 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/09 15:17:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/15 17:35:05 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include "utils.h"
 
 typedef struct s_gestion_sig
