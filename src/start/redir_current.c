@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 12:47:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:28:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 13:23:06 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock)
 		return (parent_redir_cur_b(sh, pid));
 }
 
-void	ft_wait(t_sh *sh, int pid)
+void	ft_wait(t_sh *sh, pid_t pid, pid_t stock)
 {
 	int	status;
 
@@ -100,6 +100,7 @@ void	ft_wait(t_sh *sh, int pid)
 		if (WCOREDUMP(status))
 			write(2, "Quit (core dumped)", 19);
 	}
+	sh->fils_pid = stock;
 	my_exit(sh);
 }
 
@@ -108,7 +109,10 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	void	*ptr1;
 	void	*ptr2;
 	int		i;
+	pid_t stock;
 
+	stock = sh->fils_pid;
+	sh->fils_pid = pid;
 	i = 0;
 	g_my_sig.exec_pid = pid;
 	ptr1 = &(handler_sigquit);
@@ -128,5 +132,5 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	}
 	sh->ready = 0;
 	close(1);
-	ft_wait(sh, pid);
+	ft_wait(sh, pid, stock);
 }

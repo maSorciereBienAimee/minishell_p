@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/11 18:13:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 10:31:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	boucle_minishell(t_sh *sh, char *spl)
 	sh->stop = 0;
 	sh->ready = 0;
 	is_it_pipe(sh, spl);
+	sh->if_redir_cur = 1;
 	while (sh->stop == 0)
 		manage_redir(sh, spl);
 	my_exit(sh);

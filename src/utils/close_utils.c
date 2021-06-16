@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:05:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 10:50:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	my_exit(t_sh *sh)
 {
 	int	status;
 
+	if (sh->if_redir_cur == 0)
+	{
+		my_free(sh);
+		exit(sh->code);
+	}
 	if (sh->fils_pid != -2)
 		wait_exit(sh);
 	if (sh->fils_pid == -2)

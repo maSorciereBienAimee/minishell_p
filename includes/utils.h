@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:49:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 10:31:42 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_sh
 	int			ready;
 	int			stop;
 	int			test_exec;
+	int			if_redir_cur;
 	t_redir_cur	*redir;
 	t_redir_cur	*stock_redir;
 	t_arg_redir	*stock_redir_arg;

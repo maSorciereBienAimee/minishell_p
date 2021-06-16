@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:26:49 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 11:32:33 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	redir_cur(t_sh *sh, char *spl)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	else if (pid == 0)
 	{
+		sh->if_redir_cur = 0;
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		sh->fils_pid = -2;
@@ -64,7 +65,7 @@ void	redir_cur(t_sh *sh, char *spl)
 			sh->redir->arg = sh->redir->arg->next;
 	}
 	else
-			parent_redir_cur(sh, pid);
+		parent_redir_cur(sh, pid);
 }
 
 void	redir_in(t_sh *sh, char *spl)
@@ -80,6 +81,24 @@ void	redir_in(t_sh *sh, char *spl)
 		ft_error(sh, strerror(errno), NULL, NULL);
 }
 
+void	redir_current(t_sh *sh, char *spl)
+{
+	pid_t pid;
+	int status;
+
+	pid = fork();
+	if (pid == -1)
+		ft_error(sh, strerror(errno), NULL, NULL);
+	else if (pid == 0)
+		redir_cur(sh, spl);
+	else
+	{
+		waitpid(pid, &status, 0);
+		my_exit(sh);
+	//	exit(sh->code);
+	}
+}
+
 int	manage_redir(t_sh *sh, char *spl)
 {
 	int	stop;
@@ -91,7 +110,7 @@ int	manage_redir(t_sh *sh, char *spl)
 	if (sh->actu->redir_in == 1)
 		redir_in(sh, spl);
 	if (sh->actu->redir_cur == 1)
-		redir_cur(sh, spl);
+		redir_current(sh, spl);
 	if (sh->actu->next == NULL || sh->actu->pipe == 1)
 	{
 		sh->ready = 1;
