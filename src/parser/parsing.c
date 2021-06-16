@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:33:26 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/14 16:57:46 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/16 14:32:04 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int  state_machine(t_state state, t_tokentype type)
 	{
 		{EAT, START, ERROR, ERROR, ERROR, ERROR},
 		{EAT, EAT, INPUT, OUTPUT, FLUX, START},
-		{EAT, EAT, PIPE, ERROR, ERROR, ERROR},
-		{EAT, EAT, ERROR, PIPE, ERROR, ERROR},
+		{EAT, EAT, FLUX, ERROR, ERROR, ERROR},
+		{EAT, EAT, ERROR, FLUX, ERROR, ERROR},
 		{EAT, EAT, ERROR, ERROR, ERROR, ERROR},
 	};
 	type = adjust_type(type);

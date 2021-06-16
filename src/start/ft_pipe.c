@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:43:40 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 13:21:23 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 14:35:28 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void	aligne_redir_current(t_sh *sh, int redir)
 	int		i;
 
 	i = 0;
-	while (i < redir)
+	if (sh->redir->arg != NULL)
 	{
-		sh->redir->arg = sh->redir->arg->next;
-		i++;
+		while (i < redir)
+		{
+			sh->redir->arg = sh->redir->arg->next;
+			i++;
+		}
 	}
 }
 

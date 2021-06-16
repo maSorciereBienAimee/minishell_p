@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 12:47:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 13:23:06 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 14:47:07 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ int	parent_redir_cur_b(t_sh *sh, int pid)
 	if (dup2(sh->fd_redir[1], 1) < 0)
 		return (-1);
 	close(sh->fd_redir[1]);
-	while (sh->redir->arg->str[i])
+	if (sh->redir->arg->str != NULL)
 	{
-		write(1, sh->redir->arg->str[i], ft_len(sh->redir->arg->str[i]));
-		write(1, "\n", 1);
-		i++;
-	}
+		while (sh->redir->arg->str[i])
+		{
+			write(1, sh->redir->arg->str[i], ft_len(sh->redir->arg->str[i]));
+			write(1, "\n", 1);
+			i++;
+		}
+		}
 	sh->ready = 0;
 	close(sh->save_stdout);
 	return (ft_wait_b(sh, pid));
@@ -124,12 +127,15 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	if (dup2(sh->fd_redir[1], 1) < 0)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	close(sh->fd_redir[1]);
+	if (sh->redir->arg->str != NULL)
+	{
 	while (sh->redir->arg->str[i])
 	{
 		write(1, sh->redir->arg->str[i], ft_len(sh->redir->arg->str[i]));
 		write(1, "\n", 1);
 		i++;
 	}
+	 }
 	sh->ready = 0;
 	close(1);
 	ft_wait(sh, pid, stock);

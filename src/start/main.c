@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 10:31:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/16 14:05:21 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		init_sh(&sh, sh.tab_env);
 		get_command(&sh);
-		//check_env_redir_cur
 		if (g_my_sig.restart == 1)
 			write(2, "\n", 1);
 		if (g_my_sig.restart == 0)
