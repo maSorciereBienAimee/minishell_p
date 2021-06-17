@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 17:46:02 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/17 19:21:08 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void	get_command(t_sh *sh)
 		while (++a < 4)
 			buff[a] = 0;
 	}
+	save_history(sh->command);   // je save chaque ligne de commande dans le fichier --> '.minishell_history'
+	if (strncmp(sh->command, "history", 7) == 0)   // pour tester mon historique
+		print_history();
 	if (start_parsing(sh->command) == -1)
 		exit(0);
 	sh->spl = ft_split_commande(sh, sh->command, ';');

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 10:31:42 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/17 19:07:31 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct s_sh
 	t_actual	*stock_for_pipe;
 }				t_sh;
 
+void		ft_putchar(char c);
+void		ft_putnbr(int n);
+void		ft_putstr(char *str);
+void		ft_putstr_fd(char *str, int fd);
 char		*my_realloc(t_sh *sh, char *buff, int i);
 void		my_exit(t_sh *sh);
 void		ft_error(t_sh *sh, char *str, char *cmd, char *pb);
@@ -163,4 +167,6 @@ void	init_for_fill(char *spl, int *dsb, int *ij, int i);
 void	end_fill_arg(char *s, int *ij, int *d, char **to_fill);
 void	case_exit_status(t_sh *sh, int *ij, char **to_fill);
 int	debut_fill_arg(char *s, int *ij, int *d);
+int		save_history(char *line);
+void	print_history(void);
 #endif
