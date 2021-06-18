@@ -14,9 +14,10 @@ SRCS = src/start/main.c \
        src/start/redir_current.c \
        src/start/get_redir_cur.c \
        src/start/my_readline_cur.c \
-       src/parser/lexing.c src/parser/parsing.c src/parser/utils_parsing.c \
-       src/parser/utils_parsing2.c src/parser/utils_token.c \
-       src/parser/start_parsing.c \
+	   src/start/history.c \
+	   src/parser/lexing.c src/parser/parsing.c src/parser/utils_parsing.c \
+	   src/parser/utils_token.c \
+	   src/parser/start_parsing.c \
        src/manage_var/get_env.c \
        src/manage_var/env_in_tab.c \
        src/manage_var/utils_env.c \
@@ -41,7 +42,8 @@ SRCS = src/start/main.c \
        src/utils/list_basic_utils.c \
        src/utils/lst_basic_utils.c \
        src/utils/basic_utils.c \
-       src/utils/str_utils.c \
+	   src/utils/str_utils.c \
+	   src/utils/put.c \
        src/parse/split_command.c \
        src/parse/fill_arguments.c \
        src/parse/count_arg.c \

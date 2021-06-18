@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 10:39:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 19:29:10 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ typedef struct s_sh
 	t_actual	*stock_for_pipe;
 }				t_sh;
 
+void		ft_putchar(char c);
+void		ft_putnbr(int n);
+void		ft_putstr(char *str);
+void		ft_putstr_fd(char *str, int fd);
 char		*my_realloc(t_sh *sh, char *buff, int i);
 void		my_exit(t_sh *sh);
 void		ft_error(t_sh *sh, char *str, char *cmd, char *pb);
@@ -147,6 +151,7 @@ int			is_name_eq_value(char *str);
 void		print_env(t_sh *sh);
 char		*get_name(t_sh *sh, char *str);
 char		*get_value(t_sh *sh, char *str);
+<<<<<<< HEAD
 void		lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
 void		ft_free_list_arg_redir(t_arg_redir **lst);
 void		lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
@@ -165,4 +170,25 @@ void		end_fill_arg(char *s, int *ij, int *d, char **to_fill);
 void		case_exit_status(t_sh *sh, int *ij, char **to_fill);
 int			debut_fill_arg(char *s, int *ij, int *d);
 
+=======
+void    lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
+void    ft_free_list_arg_redir(t_arg_redir **lst);
+void    lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
+t_arg_redir     *ft_lstlast_arg_redir(t_arg_redir *lst);
+void	parent_redir_cur(t_sh *sh, int pid);
+char	**get_redir_arg(t_sh *sh, char *word);
+char	*my_readline(t_sh *sh);
+void	get_redir_cur(t_sh *sh);
+int     redir_cur_b(t_sh *sh, char *spl, t_actual *stock);
+void	continue_boucle_cl(char *spl, int *dsb, int *i);
+int	which_case_count(char *s, int *j, int *dsb);
+int	var_exit_status(t_sh *sh, int *i);
+int	which_case(char *s, int *ij, int *dsb);
+void	init_for_fill(char *spl, int *dsb, int *ij, int i);
+void	end_fill_arg(char *s, int *ij, int *d, char **to_fill);
+void	case_exit_status(t_sh *sh, int *ij, char **to_fill);
+int	debut_fill_arg(char *s, int *ij, int *d);
+int		save_history(char *line);
+void	print_history(void);
+>>>>>>> a36f93a1fe8b6d5de2b7f5284be460ef23eeeec4
 #endif
