@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:58:24 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 20:36:37 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 13:26:11 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	no_fork_exec(t_sh *sh, int j)
 	int			ia[2];
 	char		**lst;
 
+	sh->if_redir_cur = 1;
 	ia[0] = 0;
 	sh->end_cmd = 0;
 	temp = get_arg_of_cmd(sh, sh->spl[j], &ia[0]);
@@ -70,7 +71,7 @@ int	no_fork_exec(t_sh *sh, int j)
 	}
 	sh->end_cmd = 0;
 	stock = temp;
-	ia[1] = manage_redir_b(sh, sh->spl[j], temp);
+	ia[1] = manage_redir_b(sh, sh->spl[j], temp, lst);
 	if (ia[1] != 1)
 		return (free_no_fork(sh, temp, NULL, ia[1]));
 	temp = stock;

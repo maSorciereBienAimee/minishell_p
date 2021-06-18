@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 08:40:06 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 20:48:43 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 13:42:24 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	fill_arg_b(t_sh *sh, char **dest, int *ij, t_actual *stock)
 	int	j;
 	int	size;
 
-	(ij[2])--;
+	if (ij[2] >= 0)
+		(ij[2])--;
 	while (stock->str_arg[++(ij[2])])
 	{
 		j = -1;

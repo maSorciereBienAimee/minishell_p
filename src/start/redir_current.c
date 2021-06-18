@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 12:47:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 14:47:07 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/17 19:48:06 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_gestion_sig	g_my_sig;
 
-int	ft_wait_b(t_sh *sh, int pid)
+int	ft_wait_b(t_sh *sh, int pid, t_actual *stock, char **lst)
 {
 	int	status;
 
@@ -27,10 +27,20 @@ int	ft_wait_b(t_sh *sh, int pid)
 		if (WCOREDUMP(status))
 			write(2, "Quit (core dumped)", 19);
 	}
-	return (1);
+	if (sh->if_redir_cur == 0)
+	{
+		my_free(sh);
+		exit(sh->code);
+	}
+	my_free(sh);
+	ft_free_lst_cmd(&stock);
+	if (sh->alloue[7] == 1)
+		ft_free_tab(sh->tab_env);
+	exit(sh->code);
+	return (2);
 }
 
-int	parent_redir_cur_b(t_sh *sh, int pid)
+int	parent_redir_cur_b(t_sh *sh, int pid, t_actual *stock, char **lst)
 {
 	void	*ptr1;
 	void	*ptr2;
@@ -55,13 +65,13 @@ int	parent_redir_cur_b(t_sh *sh, int pid)
 			write(1, "\n", 1);
 			i++;
 		}
-		}
+	}
 	sh->ready = 0;
 	close(sh->save_stdout);
-	return (ft_wait_b(sh, pid));
+	return (ft_wait_b(sh, pid, stock, lst));
 }
 
-int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock)
+int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock, char **lst)
 {
 	char		buf[10];
 	int			status;
@@ -75,6 +85,7 @@ int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock)
 		return (-1);
 	else if (pid == 0)
 	{
+		sh->if_redir_cur = 0;
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		sh->fils_pid = -2;
@@ -87,7 +98,7 @@ int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock)
 		return (1);
 	}
 	else
-		return (parent_redir_cur_b(sh, pid));
+		return (parent_redir_cur_b(sh, pid, stock, lst));
 }
 
 void	ft_wait(t_sh *sh, pid_t pid, pid_t stock)
@@ -103,7 +114,7 @@ void	ft_wait(t_sh *sh, pid_t pid, pid_t stock)
 		if (WCOREDUMP(status))
 			write(2, "Quit (core dumped)", 19);
 	}
-	sh->fils_pid = stock;
+//	sh->fils_pid = stock;
 	my_exit(sh);
 }
 
@@ -114,8 +125,8 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	int		i;
 	pid_t stock;
 
-	stock = sh->fils_pid;
-	sh->fils_pid = pid;
+//	stock = sh->fils_pid;
+//	sh->fils_pid = pid;
 	i = 0;
 	g_my_sig.exec_pid = pid;
 	ptr1 = &(handler_sigquit);
@@ -129,13 +140,13 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	close(sh->fd_redir[1]);
 	if (sh->redir->arg->str != NULL)
 	{
-	while (sh->redir->arg->str[i])
-	{
-		write(1, sh->redir->arg->str[i], ft_len(sh->redir->arg->str[i]));
-		write(1, "\n", 1);
-		i++;
+		while (sh->redir->arg->str[i])
+		{
+			write(1, sh->redir->arg->str[i], ft_len(sh->redir->arg->str[i]));
+			write(1, "\n", 1);
+			i++;
+		}
 	}
-	 }
 	sh->ready = 0;
 	close(1);
 	ft_wait(sh, pid, stock);

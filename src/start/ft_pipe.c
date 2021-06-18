@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:43:40 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 14:35:28 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:57:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_pipe(t_sh *sh, char *spl, int redir)
 		if (dup2(sh->fd_pipe[0], 0) < 0)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		close(sh->fd_pipe[0]);
-		aligne_redir_current(sh, redir);	
+		aligne_redir_current(sh, redir);
 		sh->stock_for_pipe = sh->actu->next;
 		sh->actu = sh->stock_for_pipe;
 		boucle_minishell(sh, spl);

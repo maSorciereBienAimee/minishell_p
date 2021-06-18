@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 15:14:30 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/15 17:48:10 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/18 10:41:47 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define EQUAL_ASSIGN '='
 # define END_CMD ';'
 
-typedef enum	e_tokentype
+typedef enum e_tokentype
 {
 	Text,
 	Whitespace,
@@ -37,7 +37,7 @@ typedef enum	e_tokentype
 	Dquote_text
 }				t_tokentype;
 
-typedef	enum	e_state
+typedef enum e_state
 {
 	START,
 	EAT,
@@ -47,7 +47,7 @@ typedef	enum	e_state
 	ERROR
 }				t_state;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	t_tokentype		type;
 	char			*data;

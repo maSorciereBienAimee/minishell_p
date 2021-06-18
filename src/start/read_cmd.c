@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 17:46:02 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/17 15:19:33 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	read_quit(t_sh *sh, int a, char *buff)
 		{
 			my_free(sh);
 			if (sh->alloue[7] == 1)
+			{
 				ft_free_tab(sh->tab_env);
+			}
 			sh->alloue[7] = 0;
 			close(sh->save_stdout);
 			exit(sh->last_exit);
@@ -65,7 +67,7 @@ int	read_quit(t_sh *sh, int a, char *buff)
 	return (1);
 }
 
-void	get_command(t_sh *sh)
+int	get_command(t_sh *sh)
 {
 	int		i;
 	int		j;
@@ -84,14 +86,15 @@ void	get_command(t_sh *sh)
 	{
 		a = read(g_my_sig.fd_out, &buff, 4);
 		if (read_quit(sh, a, buff) == -1)
-			return ;
+			return (0);
 		stop = check_touche(sh, buff, &j, &i);
 		a = -1;
 		while (++a < 4)
 			buff[a] = 0;
 	}
 	if (start_parsing(sh->command) == -1)
-		exit(0);
+		return (-1);
 	sh->spl = ft_split_commande(sh, sh->command, ';');
 	get_redir_cur(sh);
+	return (0);
 }

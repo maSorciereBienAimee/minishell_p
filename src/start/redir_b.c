@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:25:45 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/17 20:30:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,18 @@ int	redir_in_b(t_sh *sh, char *spl, t_actual *stock)
 	return (1);
 }
 
-int	which_redir(t_sh *sh, char *spl, t_actual *temp)
+int	which_redir(t_sh *sh, char *spl, t_actual *temp, char **lst)
 {
+	int a;
+
 	if (temp->pipe == 1)
 		return (0);
 	if (temp->redir_cur == 1)
 	{
-		if (redir_cur_b(sh, spl, temp) == -1)
+	//	a = redir_cur_b(sh, spl, temp, lst);
+		if (redir_cur_b(sh, spl, temp, lst) == -1)
 			return (-1);
+//		return (a);
 	}
 	if (temp->redir_out == 1)
 	{
@@ -122,7 +126,7 @@ int	is_pipe(t_sh *sh, t_actual *temp)
 	return (0);
 }
 
-int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp)
+int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp, char **lst)
 {
 	int	stop;
 	int	a;
@@ -132,9 +136,11 @@ int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp)
 		return (0);
 	while (stop == 0)
 	{
-		a = which_redir(sh, spl, temp);
+		a = which_redir(sh, spl, temp, lst);
 		if (a == -1 || a == 0)
 			return (a);
+		if ( a == 2)
+			return (1);
 		if (temp->next == NULL)
 			stop = 1;
 		else

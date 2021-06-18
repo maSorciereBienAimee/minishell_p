@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 10:50:52 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:56:35 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@ void	wait_exit(t_sh *sh)
 	close(0);
 	waitpid(sh->fils_pid, &status, 0);
 	if (WIFEXITED(status))
+	{
 		sh->code = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
+	}
+	else if (WIFSIGNALED(status))
 	{
 		sh->code = WTERMSIG(status) + 128;
 		if (WCOREDUMP(status))
 			write(2, "Quit (core dumped)", 19);
 	}
+	else
+		sh->code = 0;
 	if (sh->parent == 1)
 		return ;
 	my_free(sh);

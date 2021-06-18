@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 11:32:33 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:33:55 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,13 @@ void	redir_current(t_sh *sh, char *spl)
 	if (pid == -1)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	else if (pid == 0)
+	{
+		sh->if_redir_cur = 0;
 		redir_cur(sh, spl);
+	}
 	else
 	{
+		//sh->if_redir_cur = 0;
 		waitpid(pid, &status, 0);
 		my_exit(sh);
 	//	exit(sh->code);

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:17:55 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 14:42:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:53:04 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	lst_add_back(t_list_env **last, t_list_env *new_lst)
 	temp = ft_lstlast(*last);
 	temp->next = new_lst;
 }
-

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:55:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 14:58:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/17 11:20:04 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	fill_redir_cur(char **new, char **stock, char *c)
 		i = -1;
 		while(stock[++i])
 		{
-			new[i] = (char *)malloc(sizeof(char) * (ft_len(stock[i]) + 2));
+			new[i] = (char *)malloc(sizeof(char) * (ft_len(stock[i]) + 1));
 			if (!new[i])
 				return (-1);
 			j = -1;

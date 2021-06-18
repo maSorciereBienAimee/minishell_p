@@ -6,11 +6,28 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 15:33:39 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/07 10:00:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:55:29 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+
+void	ft_free_list(t_list_env **lst)
+{
+	t_list_env	*temp_lst;
+
+	if (!(*lst))
+		return ;
+	while (*lst)
+	{
+		temp_lst = (*lst)->next;
+		free((*lst)->name);
+		free((*lst)->value);
+		free(*lst);
+		*lst = temp_lst;
+	}
+	lst = 0;
+}
 
 void	ft_swap(char **s1, char **s2)
 {

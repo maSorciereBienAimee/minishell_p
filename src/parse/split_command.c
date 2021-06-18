@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 12:04:25 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/07 10:20:26 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:49:03 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ int	ft_count_w(char *s, char c)
 			check_if_in_quote(i, s, dsb);
 	}
 	if (dsb[0] % 2 != 0)
-		return (error_quote('"'));
+		return (-1);
 	if (dsb[1] % 2 != 0)
-		return (error_quote('\''));
+		return (-1);
 	return (count);
 }
 
@@ -114,10 +114,6 @@ char	**ft_split_commande(t_sh *sh, char *s, char c)
 	if (sh->alloue[2] == 1)
 		ft_free_tab(sh->spl);
 	sh->alloue[2] = 0;
-	if (check_format_virgule(sh, s) == -1)
-		return (NULL);
-	if (check_format_global(sh, s) == -1)
-		return (NULL);
 	nbr = ft_count_w(s, c);
 	if (nbr == -1)
 		return (NULL);
@@ -125,8 +121,6 @@ char	**ft_split_commande(t_sh *sh, char *s, char c)
 	if (!ptr)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	ptr = ft_fill(ptr, s, c, nbr);
-	if (check_format_pipe(sh, ptr) == -1)
-		return ((char **)ft_free_t(ptr, nbr));
 	sh->alloue[2] = 1;
 	return (ptr);
 }

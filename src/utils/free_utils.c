@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:35:12 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/10 23:36:30 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 10:55:48 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_free_list_arg_redir(t_arg_redir **lst)
 
 	if (!(*lst))
 		return ;
+	while ((*lst)->prev != NULL)
+		(*lst) = (*lst)->prev;
 	while (*lst)
 	{
 		temp = (*lst)->next;
@@ -30,6 +32,7 @@ void	ft_free_list_arg_redir(t_arg_redir **lst)
 	}
 	lst = 0;
 }
+
 void	ft_free_list_red(t_redir_cur **lst)
 {
 	t_redir_cur	*temp;
@@ -39,8 +42,7 @@ void	ft_free_list_red(t_redir_cur **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		if ((*lst)->arg != NULL)
-			ft_free_list_arg_redir(&(*lst)->arg);
+		ft_free_list_arg_redir(&(*lst)->arg);
 		free(*lst);
 		*lst = temp;
 	}
@@ -59,23 +61,6 @@ void	ft_free_lst_cmd(t_actual **lst)
 		ft_free_tab((*lst)->str_arg);
 		free(*lst);
 		*lst = temp;
-	}
-	lst = 0;
-}
-
-void	ft_free_list(t_list_env **lst)
-{
-	t_list_env	*temp_lst;
-
-	if (!(*lst))
-		return ;
-	while (*lst)
-	{
-		temp_lst = (*lst)->next;
-		free((*lst)->name);
-		free((*lst)->value);
-		free(*lst);
-		*lst = temp_lst;
 	}
 	lst = 0;
 }
@@ -119,7 +104,9 @@ void	my_free(t_sh *sh)
 		ft_free_tab(sh->spl);
 	sh->alloue[2] = 0;
 	if (sh->alloue[4] == 1)
+	{
 		ft_free_list(&sh->var_env);
+	}
 	sh->alloue[4] = 0;
 	if (sh->alloue[6] == 1)
 		free(sh->result);

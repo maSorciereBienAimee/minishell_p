@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:52:20 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:00:04 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/17 10:40:35 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_next_word(t_sh *sh, char *spl, int i)
 	return (ret);
 }
 
-t_arg_redir	*create_arg_redir(t_sh *sh, char *spl, int *i)
+t_arg_redir	*create_arg_redir(t_sh *sh, char *spl, int *i, t_arg_redir *previus)
 {
 	char		*word;
 	t_arg_redir	*ptr;
@@ -65,6 +65,7 @@ t_arg_redir	*create_arg_redir(t_sh *sh, char *spl, int *i)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		ptr->str = get_redir_arg(sh, word);
 		ptr->next = NULL;
+		ptr->prev = previus;
 		free(word);
 		(*i)++;
 	}
@@ -76,14 +77,16 @@ t_arg_redir	*get_all_redir_arg(t_sh *sh, char *spl)
 	int			i;
 	t_arg_redir	*temp;
 	t_arg_redir	*ptr;
+	t_arg_redir	*previous;
 
 	i = 0;
 	ptr = NULL;
 	while (spl[i] && ptr == NULL)
-		ptr = create_arg_redir(sh, spl, &i);
+		ptr = create_arg_redir(sh, spl, &i, NULL);
 	while (spl[i])
 	{
-		temp = create_arg_redir(sh, spl, &i);
+		previous = ft_lstlast_arg_redir(ptr);
+		temp = create_arg_redir(sh, spl, &i, previous);
 		if (temp != NULL)
 			lst_add_back_arg_red(&ptr, temp);
 		if (!spl[i])

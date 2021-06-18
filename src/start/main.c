@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/16 14:05:21 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 13:43:49 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_sh	sh;
 	pid_t	pid;
+	int		a;
 
 	if (argc != 1)
-		printf("Wrong number of arguments\n");
+		write(2, "Wrong number of arguments\n", 26);
 	init_origin(&sh, envp);
 	if (sh.alloue[4] == 1)
 		ft_free_list(&sh.var_env);
@@ -115,10 +116,10 @@ int	main(int argc, char *argv[], char *envp[])
 	while (sh.exit == 0)
 	{
 		init_sh(&sh, sh.tab_env);
-		get_command(&sh);
+		a = get_command(&sh);
 		if (g_my_sig.restart == 1)
 			write(2, "\n", 1);
-		if (g_my_sig.restart == 0)
+		if (g_my_sig.restart == 0 && a == 0)
 			run_commande(&sh);
 		my_free(&sh);
 	}
