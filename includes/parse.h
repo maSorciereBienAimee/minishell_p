@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 20:20:47 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:42:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void		export_command(t_sh *sh, char *spl, char **lst, t_actual *temp);
 int			count_letters(t_sh *sh, char *spl, int *i);
 t_actual	*get_arg_of_cmd(t_sh *sh, char *spl, int *i);
 int			no_fork_exec(t_sh *sh, int j);
-char            **get_redir_arg(t_sh *sh, char *word);
+char		**get_redir_arg(t_sh *sh, char *word);
 
 #endif
