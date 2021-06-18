@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 15:14:30 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/15 17:48:10 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/17 19:08:54 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int				add_token(t_token *list, char *item, char first, int size);
 void			free_token(t_token *list);
 char			*ft_strdup(const char *src);
 int				ft_strlen(const char *str);
-void			ft_putstr(char *str);
-void			ft_putstr_fd(char *str, int fd);
 char			*ft_strchr(const char *str, int c);
 char			*ft_strjoin(const char *s1, const char *s2);
 
