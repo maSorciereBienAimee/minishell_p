@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/11 18:03:26 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:13:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	increase_shlvl(t_sh *sh)
 void	init_origin(t_sh *sh, char **envp)
 {
 	sh->parent = 1;
+	sh->if_redir_cur = 1;
 	sh->save_stdout = dup(1);
 	sh->exit = 0;
 	sh->last_exit = 0;

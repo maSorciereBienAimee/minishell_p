@@ -12,8 +12,10 @@ SRCS = src/start/main.c \
        src/start/ft_pipe.c \
        src/start/no_fork.c \
        src/start/redir_current.c \
+       src/start/redir_current_b.c \
        src/start/get_redir_cur.c \
        src/start/my_readline_cur.c \
+       src/start/stock_redir.c \
 	   src/start/history.c \
 	   src/parser/lexing.c src/parser/parsing.c src/parser/utils_parsing.c \
 	   src/parser/utils_token.c \
@@ -44,13 +46,13 @@ SRCS = src/start/main.c \
        src/utils/basic_utils.c \
 	   src/utils/str_utils.c \
 	   src/utils/put.c \
-       src/parse/split_command.c \
-       src/parse/fill_arguments.c \
-       src/parse/count_arg.c \
-       src/parse/count_letter_arg.c \
-       src/parse/count_utils.c \
-       src/parse/fill_utils.c \
-       src/parse/parse_utils.c 
+       src/fill_struct/split_command.c \
+       src/fill_struct/fill_arguments.c \
+       src/fill_struct/count_arg.c \
+       src/fill_struct/count_letter_arg.c \
+       src/fill_struct/count_utils.c \
+       src/fill_struct/fill_utils.c \
+       src/fill_struct/parse_utils.c 
 OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -I./includes -o $(NAME)

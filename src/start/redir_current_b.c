@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_current.c                                    :+:      :+:    :+:   */
+/*   redir_current_b.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/12 12:47:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:27:58 by ssar             ###   ########.fr       */
+/*   Created: 2021/06/18 23:24:34 by ssar              #+#    #+#             */
+/*   Updated: 2021/06/18 23:32:15 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
+#include "../../includes/utils.h"
 
 t_gestion_sig	g_my_sig;
 
-void	ft_wait(t_sh *sh, pid_t pid)
+int	ft_wait_b(t_sh *sh, int pid, t_actual *stock, char **lst)
 {
 	int	status;
 
 	sh->ready = 0;
-	close(1);
+	close(sh->save_stdout);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		sh->code = WEXITSTATUS(status);
@@ -29,10 +29,20 @@ void	ft_wait(t_sh *sh, pid_t pid)
 		if (WCOREDUMP(status))
 			write(2, "Quit (core dumped)", 19);
 	}
-	my_exit(sh);
+	if (sh->if_redir_cur == 0)
+	{
+		my_free(sh);
+		exit(sh->code);
+	}
+	my_free(sh);
+	ft_free_lst_cmd(&stock);
+	if (sh->alloue[7] == 1)
+		ft_free_tab(sh->tab_env);
+	exit(sh->code);
+	return (2);
 }
 
-void	parent_redir_cur(t_sh *sh, int pid)
+int	parent_redir_cur_b(t_sh *sh, int pid, t_actual *stock, char **lst)
 {
 	void	*ptr1;
 	void	*ptr2;
@@ -47,7 +57,7 @@ void	parent_redir_cur(t_sh *sh, int pid)
 	if (sh->fd_redir[0])
 		close(sh->fd_redir[0]);
 	if (dup2(sh->fd_redir[1], 1) < 0)
-		ft_error(sh, strerror(errno), NULL, NULL);
+		return (-1);
 	close(sh->fd_redir[1]);
 	if (sh->redir->arg->str != NULL)
 	{
@@ -58,20 +68,20 @@ void	parent_redir_cur(t_sh *sh, int pid)
 			i++;
 		}
 	}
-	ft_wait(sh, pid);
+	return (ft_wait_b(sh, pid, stock, lst));
 }
 
-void	redir_cur(t_sh *sh, char *spl)
+int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock, char **lst)
 {
 	char		buf[10];
 	pid_t		pid;
 	t_actual	*temp;
 
-	temp = sh->actu->next;
+	temp = stock->next;
 	pipe(sh->fd_redir);
 	pid = fork();
 	if (pid == -1)
-		ft_error(sh, strerror(errno), NULL, NULL);
+		return (-1);
 	else if (pid == 0)
 	{
 		sh->if_redir_cur = 0;
@@ -83,9 +93,32 @@ void	redir_cur(t_sh *sh, char *spl)
 		if (dup2(sh->fd_redir[0], 0) < 0)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		close(sh->fd_redir[0]);
-		if (sh->redir->arg->next != NULL)
-			sh->redir->arg = sh->redir->arg->next;
+		sh->redir->arg = sh->redir->arg->next;
+		return (1);
 	}
 	else
-		parent_redir_cur(sh, pid);
+		return (parent_redir_cur_b(sh, pid, stock, lst));
+}
+
+int	is_pipe(t_sh *sh, t_actual *temp)
+{
+	int			stop;
+	t_actual	**stock;
+
+	stop = 0;
+	stock = &temp;
+	while (stop == 0)
+	{
+		if (temp->pipe == 1)
+		{
+			temp = *stock;
+			return (1);
+		}
+		if (temp->next == NULL)
+			stop = 1;
+		else
+			temp = temp->next;
+	}
+	temp = *stock;
+	return (0);
 }

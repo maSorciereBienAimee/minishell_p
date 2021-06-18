@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:36:20 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/17 19:18:35 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/18 23:23:34 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ static void	print_data_history(int *memo_nl, char buf, int *number_cmd)
 	write(1, &buf, 1);
 }
 
-void		print_history(void)
+void	print_history(void)
 {
 	char	buf[1];
 	int		fd;
 	int		number_cmd;
 	int		memo_nl;
 
-	if ((fd = open(".minishell_history", O_RDONLY)) == -1)
+	fd = open(".minishell_history", O_RDONLY);
+	if (fd == -1)
 	{
 		ft_putstr_fd("`.minishell_history' not found\n", 2);
-		return;
+		return ;
 	}
 	memo_nl = 0;
 	number_cmd = 1;
@@ -49,10 +50,11 @@ void		print_history(void)
 
 static int	open_history(int fd, int *exist)
 {
-	char buf[1];
+	char	buf[1];
 
 	*exist = 0;
-	if ((fd = open(".minishell_history", O_RDWR | O_APPEND, S_IRWXU)) == -1)
+	fd = open(".minishell_history", O_RDWR | O_APPEND, S_IRWXU);
+	if (fd == -1)
 	{
 		fd = open(".minishell_history", O_RDWR | O_CREAT, S_IRWXU);
 		return (fd);
@@ -65,11 +67,11 @@ static int	open_history(int fd, int *exist)
 	return (fd);
 }
 
-int		save_history(char *line)
+int	save_history(char *line)
 {
-	int fd;
+	int	fd;
 	int	exist;
-	int number_cmd;
+	int	number_cmd;
 
 	fd = open_history(fd, &exist);
 	if (exist == 1 && *line != '\0')

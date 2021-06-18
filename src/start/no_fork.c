@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:58:24 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 13:26:11 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:32:50 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ int	exec_or_not_no_fork(t_sh *sh, t_actual *temp, char **lst, int j)
 	return (0);
 }
 
+int	is_it_no_fork(t_actual *temp)
+{
+	if (ft_comp(temp->str_arg[0], "unset") == 0)
+		return (1);
+	if (ft_comp(temp->str_arg[0], "cd") == 0)
+		return (1);
+	if (ft_comp(temp->str_arg[0], "exit") == 0)
+		return (1);
+	if (ft_comp(temp->str_arg[0], "export") == 0 && temp->arg_command > 1)
+		return (1);
+	ft_free_lst_cmd(&temp);
+	return (-1);
+}
+
 int	no_fork_exec(t_sh *sh, int j)
 {
 	t_actual	*temp;
@@ -60,7 +74,6 @@ int	no_fork_exec(t_sh *sh, int j)
 	int			ia[2];
 	char		**lst;
 
-	sh->if_redir_cur = 1;
 	ia[0] = 0;
 	sh->end_cmd = 0;
 	temp = get_arg_of_cmd(sh, sh->spl[j], &ia[0]);
@@ -70,6 +83,8 @@ int	no_fork_exec(t_sh *sh, int j)
 		lst_add_back_cmd(&temp, add);
 	}
 	sh->end_cmd = 0;
+	if (is_it_no_fork(temp) == -1)
+		return (0);
 	stock = temp;
 	ia[1] = manage_redir_b(sh, sh->spl[j], temp, lst);
 	if (ia[1] != 1)

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 19:28:17 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:13:02 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	boucle_minishell(t_sh *sh, char *spl)
 
 	sh->stop = 0;
 	sh->ready = 0;
-	is_it_pipe(sh, spl);
 	sh->if_redir_cur = 1;
+	is_it_pipe(sh, spl);
 	while (sh->stop == 0)
 		manage_redir(sh, spl);
 	my_exit(sh);
@@ -92,12 +92,7 @@ void	run_commande(t_sh *sh)
 			else
 				run_parent(sh, pid);
 		}
-		sh->redir->arg = sh->stock_redir_arg;
-		if (sh->redir->next != NULL)
-		{
-			sh->redir = sh->redir->next;
-			sh->stock_redir_arg = sh->redir->arg;
-		}
+		suite_redir(sh);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 10:56:35 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:37:53 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,15 @@ void	my_exit(t_sh *sh)
 			return ;
 		my_free(sh);
 		exit(sh->code);
+	}
+}
+
+void	suite_redir(t_sh *sh)
+{
+	sh->redir->arg = sh->stock_redir_arg;
+	if (sh->redir->next != NULL)
+	{
+		sh->redir = sh->redir->next;
+		sh->stock_redir_arg = sh->redir->arg;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 10:33:55 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:27:03 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ void	redir_out(t_sh *sh, char *spl)
 		ft_error(sh, strerror(errno), NULL, NULL);
 }
 
-void	redir_cur(t_sh *sh, char *spl)
-{
-	char		buf[10];
-	int			status;
-	pid_t		pid;
-	t_actual	*temp;
-
-	temp = sh->actu->next;
-	pipe(sh->fd_redir);
-	pid = fork();
-	if (pid == -1)
-		ft_error(sh, strerror(errno), NULL, NULL);
-	else if (pid == 0)
-	{
-		sh->if_redir_cur = 0;
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		sh->fils_pid = -2;
-		if (sh->fd_redir[1])
-			close(sh->fd_redir[1]);
-		if (dup2(sh->fd_redir[0], 0) < 0)
-			ft_error(sh, strerror(errno), NULL, NULL);
-		close(sh->fd_redir[0]);
-		if (sh->redir->arg->next != NULL)
-			sh->redir->arg = sh->redir->arg->next;
-	}
-	else
-		parent_redir_cur(sh, pid);
-}
-
 void	redir_in(t_sh *sh, char *spl)
 {
 	int			fd_file;
@@ -83,8 +53,8 @@ void	redir_in(t_sh *sh, char *spl)
 
 void	redir_current(t_sh *sh, char *spl)
 {
-	pid_t pid;
-	int status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -96,10 +66,8 @@ void	redir_current(t_sh *sh, char *spl)
 	}
 	else
 	{
-		//sh->if_redir_cur = 0;
 		waitpid(pid, &status, 0);
 		my_exit(sh);
-	//	exit(sh->code);
 	}
 }
 

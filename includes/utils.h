@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 19:35:08 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 23:31:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,9 @@ void		init_for_fill(char *spl, int *dsb, int *ij, int i);
 void		end_fill_arg(char *s, int *ij, int *d, char **to_fill);
 void		case_exit_status(t_sh *sh, int *ij, char **to_fill);
 int			debut_fill_arg(char *s, int *ij, int *d);
-
-int		save_history(char *line);
-void	print_history(void);
+int			save_history(char *line);
+void		print_history(void);
+void		suite_redir(t_sh *sh);
+void	redir_cur(t_sh *sh, char *spl);
+int	is_pipe(t_sh *sh, t_actual *temp);
 #endif
