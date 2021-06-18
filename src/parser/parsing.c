@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:33:26 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/16 14:32:04 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/18 15:12:40 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static int  state_machine(t_state state, t_tokentype type)
 	{
 		{EAT, START, ERROR, ERROR, ERROR, ERROR},
 		{EAT, EAT, INPUT, OUTPUT, FLUX, START},
-		{EAT, EAT, FLUX, ERROR, ERROR, ERROR},
-		{EAT, EAT, ERROR, FLUX, ERROR, ERROR},
-		{EAT, EAT, ERROR, ERROR, ERROR, ERROR},
+		{EAT, INPUT, FLUX, ERROR, ERROR, ERROR},
+		{EAT, OUTPUT, ERROR, FLUX, ERROR, ERROR},
+		{EAT, FLUX, ERROR, ERROR, ERROR, ERROR},
 	};
 	type = adjust_type(type);
 	return (machine[state][type]);
@@ -81,7 +81,8 @@ int			parsing(t_token *token)
 	}
 	if (current_state != START && current_state != EAT)
 	{
-		print_syntax_error(-1, old_type);
+		ft_putstr_fd("minishell : ", 2);
+		ft_putstr_fd("syntax error : near unexpected `newline'\n", 2);
 		return (-1);
 	}
 	return (0);	
