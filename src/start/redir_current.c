@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 12:47:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 21:41:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 22:02:38 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,10 @@ void	parent_redir_cur(t_sh *sh, char *spl, int pid)
 		sh->redir->arg = sh->redir->arg->next;
 	waitpid(pid, &status, 0);
 	g_my_sig.exec_pid = sh->fils_pid;
-	if (WIFEXITED(status) == 1 || WIFSIGNALED(status))
-	{
-		if (WIFSIGNALED(status))
-			sh->code = WIFSIGNALED(status);
-		else
-			sh->code = 1;
-	}
+	if (WIFEXITED(status))
+		sh->code = WIFEXITED(status);
+	if (WIFSIGNALED(status))
+		sh->code = WIFSIGNALED(status);
 }
 
 void	redir_current(t_sh *sh, char *spl)
