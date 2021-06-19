@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 21:39:39 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:50:34 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int			save_history(char *line);
 void		print_history(void);
 void		suite_redir(t_sh *sh);
 int			is_pipe(t_sh *sh, t_actual *temp);
-int			redir_current_b(t_sh *sh, char *spl, t_actual *actu, t_actual *stock);
+int			redir_current_b(t_sh *sh, char *spl, t_actual *ac, t_actual *sto);
 void		redir_current(t_sh *sh, char *spl);
 
 #endif

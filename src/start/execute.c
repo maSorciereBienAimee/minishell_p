@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:56:31 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/12 15:04:52 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:47:57 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 t_gestion_sig	g_my_sig;
 
-void	cmd_in_child(t_sh *sh, char *spl)
+void	which_cmd(t_sh *sh, char *spl, char **lst_arguments)
 {
-	char	**lst_arguments;
-
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
-	sh->fils_pid = -2;
-	g_my_sig.exec_pid = -2;
-	lst_arguments = all_arg(sh);
 	if (ft_comp(lst_arguments[0], "exit") == 0)
 		exit_command(sh, lst_arguments, sh->actu);
+	else if (ft_comp(lst_arguments[0], "history") == 0)
+		print_history();
 	else if (ft_comp(lst_arguments[0], "pwd") == 0)
 		pwd_command(sh, spl);
 	else if (ft_comp(lst_arguments[0], "export") == 0)
@@ -39,6 +34,18 @@ void	cmd_in_child(t_sh *sh, char *spl)
 		unset_command(sh, spl, lst_arguments, sh->actu);
 	else
 		launch_exec(sh, spl, lst_arguments[0], lst_arguments);
+}
+
+void	cmd_in_child(t_sh *sh, char *spl)
+{
+	char	**lst_arguments;
+
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	sh->fils_pid = -2;
+	g_my_sig.exec_pid = -2;
+	lst_arguments = all_arg(sh);
+	which_cmd(sh, spl, lst_arguments);
 	ft_free_tab(lst_arguments);
 	my_exit(sh);
 }
