@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:31:13 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 20:10:39 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	redir_in_b(t_sh *sh, char *spl, t_actual *stock)
 	return (1);
 }
 
-int	which_redir(t_sh *sh, char *spl, t_actual *temp, char **lst)
+int	which_redir(t_sh *sh, char *spl, t_actual *temp, t_actual *stock)
 {
 	int	a;
 
@@ -80,7 +80,7 @@ int	which_redir(t_sh *sh, char *spl, t_actual *temp, char **lst)
 		return (0);
 	if (temp->redir_cur == 1)
 	{
-		if (redir_cur_b(sh, spl, temp, lst) == -1)
+		if (redir_current_b(sh, spl, temp, stock) == -1)
 			return (-1);
 	}
 	if (temp->redir_out == 1)
@@ -101,7 +101,7 @@ int	which_redir(t_sh *sh, char *spl, t_actual *temp, char **lst)
 	return (1);
 }
 
-int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp, char **lst)
+int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp, t_actual *stock)
 {
 	int	stop;
 	int	a;
@@ -111,7 +111,7 @@ int	manage_redir_b(t_sh *sh, char *spl, t_actual *temp, char **lst)
 		return (0);
 	while (stop == 0)
 	{
-		a = which_redir(sh, spl, temp, lst);
+		a = which_redir(sh, spl, temp, stock);
 		if (a == -1 || a == 0)
 			return (a);
 		if (a == 2)

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:58:24 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:32:50 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 20:03:43 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	no_fork_exec(t_sh *sh, int j)
 	if (is_it_no_fork(temp) == -1)
 		return (0);
 	stock = temp;
-	ia[1] = manage_redir_b(sh, sh->spl[j], temp, lst);
+	ia[1] = manage_redir_b(sh, sh->spl[j], temp, stock);
 	if (ia[1] != 1)
 		return (free_no_fork(sh, temp, NULL, ia[1]));
 	temp = stock;

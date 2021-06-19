@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:27:03 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 20:08:19 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,6 @@ void	redir_in(t_sh *sh, char *spl)
 		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
 	if (dup2(fd_file, 0) < 0)
 		ft_error(sh, strerror(errno), NULL, NULL);
-}
-
-void	redir_current(t_sh *sh, char *spl)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		ft_error(sh, strerror(errno), NULL, NULL);
-	else if (pid == 0)
-	{
-		sh->if_redir_cur = 0;
-		redir_cur(sh, spl);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		my_exit(sh);
-	}
 }
 
 int	manage_redir(t_sh *sh, char *spl)

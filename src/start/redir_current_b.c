@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 23:24:34 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:32:15 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:40:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,30 @@
 
 t_gestion_sig	g_my_sig;
 
-int	ft_wait_b(t_sh *sh, int pid, t_actual *stock, char **lst)
+void	quit_ch(t_sh *sh, t_actual *stock)
 {
-	int	status;
-
-	sh->ready = 0;
-	close(sh->save_stdout);
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		sh->code = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-	{
-		sh->code = WTERMSIG(status) + 128;
-		if (WCOREDUMP(status))
-			write(2, "Quit (core dumped)", 19);
-	}
-	if (sh->if_redir_cur == 0)
-	{
-		my_free(sh);
-		exit(sh->code);
-	}
+	close(1);
 	my_free(sh);
+	ft_free_tab(sh->tab_env);
 	ft_free_lst_cmd(&stock);
-	if (sh->alloue[7] == 1)
-		ft_free_tab(sh->tab_env);
-	exit(sh->code);
-	return (2);
+	exit(0);
 }
 
-int	parent_redir_cur_b(t_sh *sh, int pid, t_actual *stock, char **lst)
+void	child_redir_cur_b(t_sh *sh, char *spl, t_actual *actu, t_actual *stock)
 {
-	void	*ptr1;
-	void	*ptr2;
 	int		i;
 
 	i = 0;
-	g_my_sig.exec_pid = pid;
-	ptr1 = &(handler_sigquit);
-	ptr2 = &(handler_sigint);
-	signal(SIGQUIT, ptr1);
-	signal(SIGINT, ptr2);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	sh->fils_pid = -2;
 	if (sh->fd_redir[0])
 		close(sh->fd_redir[0]);
 	if (dup2(sh->fd_redir[1], 1) < 0)
-		return (-1);
+	{
+		ft_error(sh, strerror(errno), NULL, NULL);
+		exit(1);
+	}
 	close(sh->fd_redir[1]);
 	if (sh->redir->arg->str != NULL)
 	{
@@ -68,36 +48,64 @@ int	parent_redir_cur_b(t_sh *sh, int pid, t_actual *stock, char **lst)
 			i++;
 		}
 	}
-	return (ft_wait_b(sh, pid, stock, lst));
+	quit_ch(sh, stock);
 }
 
-int	redir_cur_b(t_sh *sh, char *spl, t_actual *stock, char **lst)
+int	parent_redir_cur_b(t_sh *sh, char *spl, int pid)
 {
-	char		buf[10];
+	int	status;
+
+	if (sh->fd_redir[1])
+		close(sh->fd_redir[1]);
+	if (dup2(sh->fd_redir[0], 0) < 0)
+	{
+		g_my_sig.exec_pid = sh->fils_pid;
+		ft_error(sh, strerror(errno), NULL, NULL);
+		return (-1);
+	}
+	close(sh->fd_redir[0]);
+	if (sh->redir->arg->next != NULL)
+		sh->redir->arg = sh->redir->arg->next;
+	waitpid(pid, &status, 0);
+	g_my_sig.exec_pid = sh->fils_pid;
+	if (WIFEXITED(status) == 1 || WIFSIGNALED(status))
+	{
+		if (WIFSIGNALED(status))
+			sh->last_exit = WIFSIGNALED(status);
+		else
+			sh->last_exit = 1;
+		return (-1);
+	}
+	return (1);
+}
+
+int	redir_current_b(t_sh *sh, char *spl, t_actual *actu, t_actual *stock)
+{
 	pid_t		pid;
 	t_actual	*temp;
+	void		*ptr1;
+	void		*ptr2;
 
-	temp = stock->next;
+	temp = actu->next;
 	pipe(sh->fd_redir);
 	pid = fork();
 	if (pid == -1)
-		return (-1);
-	else if (pid == 0)
 	{
-		sh->if_redir_cur = 0;
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		sh->fils_pid = -2;
-		if (sh->fd_redir[1])
-			close(sh->fd_redir[1]);
-		if (dup2(sh->fd_redir[0], 0) < 0)
-			ft_error(sh, strerror(errno), NULL, NULL);
-		close(sh->fd_redir[0]);
-		sh->redir->arg = sh->redir->arg->next;
-		return (1);
+		ft_error(sh, strerror(errno), NULL, NULL);
+		return (-1);
 	}
+	else if (pid == 0)
+		child_redir_cur_b(sh, spl, actu, stock);
 	else
-		return (parent_redir_cur_b(sh, pid, stock, lst));
+	{
+		g_my_sig.exec_pid = pid;
+		ptr1 = &(handler_sigquit);
+		ptr2 = &(handler_sigint);
+		signal(SIGQUIT, ptr1);
+		signal(SIGINT, ptr2);
+		return (parent_redir_cur_b(sh, spl, pid));
+	}
+	return (1);
 }
 
 int	is_pipe(t_sh *sh, t_actual *temp)

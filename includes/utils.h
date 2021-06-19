@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:42:42 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:39:39 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		skip_space(char *spl, int *i);
 void		handler_sigint(int sig);
 void		handler_sigquit(int sig);
 char		**all_arg(t_sh *sh);
-int			manage_redir_b(t_sh *sh, char *spl, t_actual *temp, char **lst);
+int			manage_redir_b(t_sh *sh, char *spl, t_actual *temp, t_actual *stok);
 char		**all_arg_b(t_sh *sh, t_actual *stock);
 int			copy_arg(char **dest, char **src);
 void		continue_parent(t_sh *sh, pid_t pid);
@@ -156,11 +156,9 @@ void		lst_add_back_red(t_redir_cur **last, t_redir_cur *new_lst);
 void		ft_free_list_arg_redir(t_arg_redir **lst);
 void		lst_add_back_arg_red(t_arg_redir **last, t_arg_redir *new_lst);
 t_arg_redir	*ft_lstlast_arg_redir(t_arg_redir *lst);
-void		parent_redir_cur(t_sh *sh, int pid);
 char		**get_redir_arg(t_sh *sh, char *word);
 char		*my_readline(t_sh *sh);
 void		get_redir_cur(t_sh *sh);
-int			redir_cur_b(t_sh *sh, char *spl, t_actual *stock, char **lst);
 void		continue_boucle_cl(char *spl, int *dsb, int *i);
 int			which_case_count(char *s, int *j, int *dsb);
 int			var_exit_status(t_sh *sh, int *i);
@@ -172,6 +170,8 @@ int			debut_fill_arg(char *s, int *ij, int *d);
 int			save_history(char *line);
 void		print_history(void);
 void		suite_redir(t_sh *sh);
-void		redir_cur(t_sh *sh, char *spl);
 int			is_pipe(t_sh *sh, t_actual *temp);
+int			redir_current_b(t_sh *sh, char *spl, t_actual *actu, t_actual *stock);
+void		redir_current(t_sh *sh, char *spl);
+
 #endif
