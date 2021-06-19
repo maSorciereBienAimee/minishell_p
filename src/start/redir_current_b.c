@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 23:24:34 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 21:40:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:42:54 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	quit_ch(t_sh *sh, t_actual *stock)
 {
 	close(1);
 	my_free(sh);
-	ft_free_tab(sh->tab_env);
+	if (sh->alloue[7] == 1)
+		ft_free_tab(sh->tab_env);
 	ft_free_lst_cmd(&stock);
 	exit(0);
 }
