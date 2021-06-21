@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:36:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/07 10:28:24 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/21 15:26:30 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_error(t_sh *sh, char *str, char *cmd, char *pb)
 		write(2, ": ", 2);
 	}
 	write(2, str, ft_len(str));
-	write(2, "\n", 1);
+	if (sh->parent == 1)
+		write(1, "\n", 1);
 	my_exit(sh);
 }
 

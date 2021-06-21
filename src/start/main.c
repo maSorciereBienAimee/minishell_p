@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:13:02 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/21 15:20:13 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	run_parent(t_sh *sh, pid_t pid)
 	if (WIFEXITED(status))
 	{
 		if (WEXITSTATUS(status))
-			write(2, "\n", 1);
+			write(2, "\n", 2);
 		sh->last_exit = WEXITSTATUS(status);
 	}
 	else if (WIFSIGNALED(status))
