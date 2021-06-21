@@ -37,8 +37,10 @@ SRCS = src/start/main.c \
        src/utils/signal_handler.c \
        src/utils/ft_atoi.c \
        src/utils/ft_itoa.c \
+       src/utils/ft_bzero.c \
        src/utils/ft_split.c \
        src/utils/free_utils.c \
+       src/utils/term_utils.c \
        src/utils/print_error.c \
        src/utils/other_utils.c \
        src/utils/list_basic_utils.c \

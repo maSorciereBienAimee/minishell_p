@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:36:20 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/21 15:28:59 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/21 18:02:58 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	print_history(void)
 
 static void	check_nl(int fd, int *new_line)
 {
-	char buf[1];
-	char memo;
+	char	buf[1];
+	char	memo;
 
 	if (read(fd, &buf, 1) == 0)
 		return ;

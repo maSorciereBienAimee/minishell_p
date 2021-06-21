@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 21:50:34 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/21 18:01:32 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_list_env
 
 typedef struct s_sh
 {
+	struct termios	old_tty;
+	struct termios	new_tty;
 	int			parent;
 	int			save_stdout;
 	int			code;
@@ -173,5 +175,6 @@ void		suite_redir(t_sh *sh);
 int			is_pipe(t_sh *sh, t_actual *temp);
 int			redir_current_b(t_sh *sh, char *spl, t_actual *ac, t_actual *sto);
 void		redir_current(t_sh *sh, char *spl);
-
+void	ft_bzero(void *s, size_t n);
+void	pass_non_canonique(t_sh *sh);
 #endif
