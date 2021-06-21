@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/21 18:02:39 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/21 18:09:38 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 		else if (b[k] == 27)
 		{
 			if (b[k + 2] && b[k + 2] == 65)
-				write(g_my_sig.fd_out, "touche haut\n", 13);
+				write(g_my_sig.fd_out, "touche haut ", 13);
 			if (b[k + 2] && b[k + 2] == 66)
-				write(g_my_sig.fd_out, "touche bas \n", 13);
-			write(g_my_sig.fd_out, "\r", 1);
-			return (1);
+				write(g_my_sig.fd_out, "touche bas ", 12);
+			return (0);
 		}
 		print_letter(sh, b[k], j, i);
 		k++;
