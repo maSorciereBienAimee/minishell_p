@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:36:20 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/18 23:23:34 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/21 15:28:59 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,34 @@ void	print_history(void)
 	ft_putchar('\n');
 }
 
-static int	open_history(int fd, int *exist)
+static void	check_nl(int fd, int *new_line)
 {
-	char	buf[1];
+	char buf[1];
+	char memo;
 
-	*exist = 0;
-	fd = open(".minishell_history", O_RDWR | O_APPEND, S_IRWXU);
+	if (read(fd, &buf, 1) == 0)
+		return ;
+	else
+	{
+		memo = *buf;
+		while (read(fd, &buf, 1) == 1)
+			memo = *buf;
+		if (memo == '\n')
+			*new_line = 1;
+	}
+}
+
+static int	open_history(int fd, int *new_line)
+{
+	*new_line = 0;
+	fd = open(".minishell_history", O_RDONLY);
 	if (fd == -1)
 	{
+		*new_line = 1;
 		fd = open(".minishell_history", O_RDWR | O_CREAT, S_IRWXU);
 		return (fd);
 	}
-	if (read(fd, &buf, 1) == 0)
-		return (fd);
-	*exist = 1;
+	check_nl(fd, new_line);
 	close(fd);
 	fd = open(".minishell_history", O_RDWR | O_APPEND, S_IRWXU);
 	return (fd);
@@ -70,11 +84,11 @@ static int	open_history(int fd, int *exist)
 int	save_history(char *line)
 {
 	int	fd;
-	int	exist;
+	int	new_line;
 	int	number_cmd;
 
-	fd = open_history(fd, &exist);
-	if (exist == 1 && *line != '\0')
+	fd = open_history(fd, &new_line);
+	if (new_line == 0 && *line != '\0')
 		write(fd, "\n", 1);
 	if (*line != '\n')
 		ft_putstr_fd(line, fd);
