@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/21 15:20:13 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 13:54:56 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_sh	sh;
 	pid_t	pid;
+	t_hist	*history;
 	int		a;
 
 	if (argc != 1)
@@ -108,9 +109,15 @@ int	main(int argc, char *argv[], char *envp[])
 	if (sh.alloue[4] == 1)
 		ft_free_list(&sh.var_env);
 	sh.alloue[4] = 0;
+	if ((history = build_history(1)) == NULL)
+	{
+		ft_putstr_fd("Error allocation failed\n", 2);			// a gerer
+		return (EXIT_FAILURE);
+	}
 	while (sh.exit == 0)
 	{
 		init_sh(&sh, sh.tab_env);
+		sh.history = history;
 		a = get_command(&sh);
 		if (g_my_sig.restart == 1)
 			write(2, "\n", 1);
@@ -122,5 +129,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_free_tab(sh.tab_env);
 	close(sh.save_stdout);
 	write(2, "exit\n", 5);
+	write_history(history);
+	free_history(history);
 	exit(sh.last_exit);
 }

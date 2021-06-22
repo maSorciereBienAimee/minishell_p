@@ -6,13 +6,14 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:42:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 13:04:38 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 # include "minishell.h"
+# include "history.h"
 
 void		analyse_command(t_sh *sh, char *spl);
 int			get_command(t_sh *sh);

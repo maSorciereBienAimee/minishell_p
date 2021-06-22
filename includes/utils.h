@@ -6,12 +6,13 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/21 18:01:32 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 13:05:52 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+# include "history.h"
 # include "minishell.h"
 
 typedef struct s_actual
@@ -83,6 +84,7 @@ typedef struct s_sh
 	t_actual	*actu;
 	t_actual	*stock_actu;
 	t_actual	*stock_for_pipe;
+	t_hist		*history;
 }				t_sh;
 
 void		ft_putchar(char c);
@@ -169,8 +171,6 @@ void		init_for_fill(char *spl, int *dsb, int *ij, int i);
 void		end_fill_arg(char *s, int *ij, int *d, char **to_fill);
 void		case_exit_status(t_sh *sh, int *ij, char **to_fill);
 int			debut_fill_arg(char *s, int *ij, int *d);
-int			save_history(char *line);
-void		print_history(void);
 void		suite_redir(t_sh *sh);
 int			is_pipe(t_sh *sh, t_actual *temp);
 int			redir_current_b(t_sh *sh, char *spl, t_actual *ac, t_actual *sto);
