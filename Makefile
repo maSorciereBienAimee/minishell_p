@@ -54,6 +54,7 @@ SRCS = src/start/main.c \
        src/fill_struct/count_utils.c \
        src/fill_struct/fill_utils.c \
        src/fill_struct/parse_utils.c \
+	   src/history/fleche_history.c \
 	   src/history/history.c src/history/utils.c src/history/write_history.c \
 	   src/history/clean_history.c src/history/get_next_line.c
 OBJS = $(SRCS:.c=.o)
