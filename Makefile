@@ -31,6 +31,7 @@ SRCS = src/start/main.c \
        src/cmd/cd_com.c \
        src/cmd/echo_com.c \
        src/cmd/export_com.c \
+	   src/cmd/history_com.c \
        src/utils/alloc_utils.c \
        src/utils/close_utils.c \
        src/utils/signal_handler.c \
