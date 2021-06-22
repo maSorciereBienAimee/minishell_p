@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 13:05:52 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/22 15:02:36 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_sh
 {
 	struct termios	old_tty;
 	struct termios	new_tty;
+	int	in_read;
 	int			parent;
 	int			save_stdout;
 	int			code;
@@ -177,4 +178,7 @@ int			redir_current_b(t_sh *sh, char *spl, t_actual *ac, t_actual *sto);
 void		redir_current(t_sh *sh, char *spl);
 void	ft_bzero(void *s, size_t n);
 void	pass_non_canonique(t_sh *sh);
+void    fleche_bas(t_sh *sh);
+void    fleche_haut(t_sh *sh);
+void    history_command(t_sh *sh, char **lst_arg, t_actual *actu);
 #endif
