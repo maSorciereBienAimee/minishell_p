@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/21 18:09:38 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 13:16:24 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	read_quit(t_sh *sh, int a, char *buff)
 
 int	prepare_command(t_sh *sh)
 {
-	save_history(sh->command);
+	add_line_to_history(sh->history, sh->command);
 	if (start_parsing(sh->command) == -1)
 		return (-1);
 	sh->spl = ft_split_commande(sh, sh->command, ';');

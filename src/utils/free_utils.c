@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:35:12 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 10:55:48 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 14:06:04 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ void	my_free(t_sh *sh)
 		ft_free_tab(sh->tab_env);
 		sh->alloue[7] = 0;
 	}
+	if (sh->parent != 1)
+		free_history(sh->history);
 	my_free_bis(sh);
 }
