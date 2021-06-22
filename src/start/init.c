@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:13:25 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/22 14:44:19 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	init_origin(t_sh *sh, char **envp)
 {
 	sh->parent = 1;
 	sh->if_redir_cur = 1;
+	sh->in_read = 0;
 	sh->save_stdout = dup(1);
 	sh->exit = 0;
 	sh->last_exit = 0;

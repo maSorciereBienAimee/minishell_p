@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 13:16:24 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/22 14:45:49 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 		else if (b[k] == 27)
 		{
 			if (b[k + 2] && b[k + 2] == 65)
-				write(g_my_sig.fd_out, "touche haut ", 13);
+				fleche_haut(sh);
 			if (b[k + 2] && b[k + 2] == 66)
-				write(g_my_sig.fd_out, "touche bas ", 12);
+				fleche_bas(sh);
 			return (0);
 		}
 		print_letter(sh, b[k], j, i);
@@ -129,10 +129,12 @@ int	get_command(t_sh *sh)
 		if (read_quit(sh, a, buff) == -1)
 			return (0);
 		stop = check_touche(sh, buff, &ij[1], &ij[0]);
+		sh->in_read = 1;
 		a = -1;
 		while (++a < 4)
 			buff[a] = 0;
 	}
+	sh->in_read = 0;
 	tcsetattr(0, TCSANOW, &sh->old_tty);
 	return (prepare_command(sh));
 }
