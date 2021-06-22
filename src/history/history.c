@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:23 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/22 14:15:07 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/22 16:18:37 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	save_to_list(int fd, t_hist	*history)
 			if (tmp != history)
 				list_push_back(history, tmp);
 		}
-	free(line);
+		free(line);
 	}
 	if (line != NULL)
 		free(line);

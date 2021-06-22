@@ -31,6 +31,7 @@ SRCS = src/start/main.c \
        src/cmd/cd_com.c \
        src/cmd/echo_com.c \
        src/cmd/export_com.c \
+	   src/cmd/history_com.c \
        src/utils/alloc_utils.c \
        src/utils/close_utils.c \
        src/utils/signal_handler.c \
@@ -56,7 +57,7 @@ SRCS = src/start/main.c \
        src/fill_struct/parse_utils.c \
 	   src/history/fleche_history.c \
 	   src/history/history.c src/history/utils.c src/history/write_history.c \
-	   src/history/get_next_line.c
+	   src/history/clean_history.c src/history/get_next_line.c
 OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -I./includes -o $(NAME)
