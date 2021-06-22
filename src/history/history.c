@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:54:23 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/22 14:07:57 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/22 14:15:07 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,26 @@ void		print_history(t_hist *history)
 	}
 }
 
-int			save_to_list(int fd, t_hist	*history)
+int			add_line_to_history(t_hist *history, char *line)
+{
+	t_hist	*new;
+
+	if (*line == '\0')
+		return (0);
+	if (history->cmd == NULL)
+	{
+		history->exist = 0;
+		if ((history->cmd = ft_strdup(line)) == NULL)
+			return (-1);
+		return (0);
+	}
+	if ((new = init_history(0)) == NULL || (new->cmd = ft_strdup(line)) == NULL)
+		return (-1);
+	list_push_back(history, new);
+	return (0);
+}
+
+static int	save_to_list(int fd, t_hist	*history)
 {
 	t_hist	*tmp;
 	char	*line;
@@ -53,25 +72,6 @@ int			save_to_list(int fd, t_hist	*history)
 	}
 	if (line != NULL)
 		free(line);
-	return (0);
-}
-
-int			add_line_to_history(t_hist *history, char *line)
-{
-	t_hist	*new;
-
-	if (*line == '\0')
-		return (0);
-	if (history->cmd == NULL)
-	{
-		history->exist = 0;
-		if ((history->cmd = ft_strdup(line)) == NULL)
-			return (-1);
-		return (0);
-	}
-	if ((new = init_history(0)) == NULL || (new->cmd = ft_strdup(line)) == NULL)
-		return (-1);
-	list_push_back(history, new);
 	return (0);
 }
 
