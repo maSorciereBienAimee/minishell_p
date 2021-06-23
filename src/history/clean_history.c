@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:43:10 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/22 16:04:31 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/23 14:26:55 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	clean_elem(t_hist *elem)
 		elem->cmd = NULL;
 	}
 	elem->exist = 0;
-	elem->nb = 0;
+	elem->nb = 1;
 	elem->prev = NULL;
 	elem->next = NULL;
 }
