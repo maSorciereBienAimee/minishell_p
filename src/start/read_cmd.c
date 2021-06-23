@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 15:09:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 15:38:12 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 				sh->tty_col = tgetnum("co");
 				if (rc[1] == 1)
 				{
-					if (rc[0] > 1)
-						rc[0] = rc[0] - 2;
+					rc[0] = rc[0] - 2;
 					s = tgetstr("cm", NULL);
-					tputs(tgoto(s, sh->tty_col+1, rc[0]), 1, ft_putchar_b);
+					tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
 				}
 				else
 					write(g_my_sig.fd_out, "\b",1);
-				if (rc[0] == sh->init_cursor_r && rc[1] == sh->init_cursor_c)
-					return ;
 				s = tgetstr("dc", NULL);
 				tputs(s, 1, ft_putchar_b);
 			}
