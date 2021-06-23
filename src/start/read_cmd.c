@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 14:42:15 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 14:53:07 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 				sh->tty_col = tgetnum("co");
 				if (rc[1] == 1)
 				{
-					if (rc[0] == sh->tty_row)
+					if (rc[0] > 1)
 						rc[0] = rc[0] - 2;
-					else if (rc[0] > 1 && rc[0] != sh->tty_row)
-						rc[0] = rc[0] - 1;
 					s = tgetstr("cm", NULL);
 					tputs(tgoto(s, sh->tty_col+1, rc[0]), 1, ft_putchar_b);
 				}
