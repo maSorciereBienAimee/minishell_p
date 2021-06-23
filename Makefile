@@ -1,6 +1,7 @@
 NAME = minishell
 CC = clang
 FLAGS = -Wall -Werror -Wextra #-fsanitize=address
+INC = -lncurses
 SRCS = src/start/main.c \
        src/start/init.c \
        src/start/arg_in_tab.c \
@@ -61,7 +62,7 @@ SRCS = src/start/main.c \
 	   src/history/clean_history.c src/history/get_next_line.c
 OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -I./includes -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -I./includes -I./usr/include $(INC) -o $(NAME)
 	#$(CC) $(FLAGS) $(OBJS) -I./includes -o $(NAME)
 all : $(NAME)
 clean : 

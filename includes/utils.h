@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 09:14:35 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 11:49:36 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ typedef struct s_list_env
 
 typedef struct s_sh
 {
+	int	tty_col;
+	int tty_row;
+	int	init_cursor_r;
+	int init_cursor_c;
 	struct termios	old_tty;
 	struct termios	new_tty;
 	int	in_read;
@@ -92,6 +96,7 @@ void		ft_putchar(char c);
 void		ft_putnbr(int n);
 void		ft_putstr(char *str);
 void		ft_putstr_fd(char *str, int fd);
+int		ft_putchar_b(int c);
 char		*my_realloc(t_sh *sh, char *buff, int i);
 void		my_exit(t_sh *sh);
 void		ft_error(t_sh *sh, char *str, char *cmd, char *pb);
@@ -181,5 +186,5 @@ void	pass_non_canonique(t_sh *sh);
 void    fleche_bas(t_sh *sh);
 void    fleche_haut(t_sh *sh);
 void    history_command(t_sh *sh, char **lst_arg, t_actual *actu);
-int    get_cursor(t_sh *sh, int *rc);
+int    get_cursor(t_sh *sh, int *rc, int del);
 #endif
