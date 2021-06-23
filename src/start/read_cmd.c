@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 14:45:49 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 09:14:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 int	check_touche(t_sh*sh, char *b, int *j, int *i)
 {
 	int	k;
+	int rc[2];
 
 	k = 0;
 	while (k < 4)
@@ -58,9 +59,9 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 		else if (b[k] == 27)
 		{
 			if (b[k + 2] && b[k + 2] == 65)
-				fleche_haut(sh);
+				get_cursor(sh, rc); //write(2,"haut\n", 5);
 			if (b[k + 2] && b[k + 2] == 66)
-				fleche_bas(sh);
+				get_cursor(sh, rc); //write(2, "bas\n", 4);
 			return (0);
 		}
 		print_letter(sh, b[k], j, i);
@@ -88,11 +89,11 @@ int	read_quit(t_sh *sh, int a, char *buff)
 		tcsetattr(0, TCSANOW, &sh->old_tty);
 		my_free(sh);
 		if (sh->alloue[7] == 1)
-		{
 			ft_free_tab(sh->tab_env);
-		}
 		sh->alloue[7] = 0;
 		close(sh->save_stdout);
+		write_history(sh->history);
+		free_history(sh->history);
 		exit(sh->last_exit);
 	}
 	return (1);
@@ -122,6 +123,7 @@ int	get_command(t_sh *sh)
 	while (++(ij[0]) < 4)
 		buff[ij[0]] = 0;
 	ij[0] = 2;
+//	get_cursor(sh);
 	pass_non_canonique(sh);
 	while (stop != 1)
 	{
