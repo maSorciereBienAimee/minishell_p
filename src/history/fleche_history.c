@@ -6,11 +6,20 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 15:11:29 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 15:31:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+
+/*
+ il faut :
+ stocker la ou mettre la commande -> fait dans read_cmd.c
+ ensuite, effacer tous les caractere jusqu'au prompt
+ ensuite ecrire la nouvelle ligne
+ deplacer le curseur a la fin de la nouvelle ligne ?
+ remplacer sh->command par la nouvelle (normalement deja fait)
+ */
 
 void	fleche_haut(t_sh *sh)
 {
