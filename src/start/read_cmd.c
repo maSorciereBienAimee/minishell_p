@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 14:53:07 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 15:09:58 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,7 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 			return (0);
 		}
 		else
-		{
-			char c;
-			c = b[k];
-			b[0] = '\0';
-			b[1] = '\0';
-			b[2] = '\0';
-			b[3] = '\0';
-			print_letter(sh, c, j, i);
-		}
+			print_letter(sh, b[k], j, i);
 		k++;
 	}
 	return (0);

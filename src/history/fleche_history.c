@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 08:54:08 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 15:11:29 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	fleche_haut(t_sh *sh)
 			sh->history = sh->history->next;
 		if (sh->history != NULL)
 		{
-			len = ft_len(sh->command);
-			while (len >= 0)
-				write(g_my_sig.fd_out, "\b\0\b", 3);
+		//len = ft_len(sh->command);
+		//	while (len >= 0)
+		//		write(g_my_sig.fd_out, "\b\0\b", 3);
 			write(g_my_sig.fd_out, sh->history->cmd, ft_len(sh->history->cmd));
 			sh->command = copy_char(sh, sh->command, sh->history->cmd);
 		}
@@ -52,17 +52,17 @@ void	fleche_bas(t_sh *sh)
 	if (sh->history->next != NULL)
 	{
 		sh->history = sh->history->next;
-		len = ft_len(sh->command);
-		while (len >= 0)
-			write(g_my_sig.fd_out, "\b\0\b", 3);
+	//	len = ft_len(sh->command);
+	//	while (len >= 0)
+	//		write(g_my_sig.fd_out, "\b\0\b", 3);
 		write(g_my_sig.fd_out, sh->history->cmd, ft_len(sh->history->cmd));
 		sh->command = copy_char(sh, sh->command, sh->history->cmd);
 	}
 	else
 	{
-		len = ft_len(sh->command);
-		while (len >= 0)
-			write(g_my_sig.fd_out, "\b\0\b", 3);
+	//	len = ft_len(sh->command);
+	//	while (len >= 0)
+	//		write(g_my_sig.fd_out, "\b\0\b", 3);
 		free(sh->command);
 		sh->alloue[1] = 0;
 		sh->command = (char *)malloc(sizeof(char) * 1);
