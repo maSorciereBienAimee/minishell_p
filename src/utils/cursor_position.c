@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 08:55:42 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 09:18:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 12:15:07 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,49 @@ int	get_row(char *str)
 	return (row);
 }
 
-int	replace_cursor(t_sh *sh)
+int	replace_cursor(t_sh *sh, int del)
 {
-	write(1, "\b \b\b \b", 6);
-	free(sh->command);
-	sh->alloue[1] = 0;
-	sh->command = (char *)malloc(sizeof(char) * 1);
-	if (!sh->command)
+	char *s;
+
+	write(g_my_sig.fd_out, "\b",1);
+	s = tgetstr("dc", NULL);
+	tputs(s, 1, ft_putchar_b);
+	write(g_my_sig.fd_out, "\b",1);
+	s = tgetstr("dc", NULL);
+	tputs(s, 1, ft_putchar_b);
+	if (del == 1)
 	{
-		ft_error(sh, strerror(errno), NULL, NULL);
-		return (-1);
+		free(sh->command);
+		sh->alloue[1] = 0;
+		sh->command = (char *)malloc(sizeof(char) * 1);
+		if (!sh->command)
+		{
+			ft_error(sh, strerror(errno), NULL, NULL);
+			return (-1);
+		}
+		sh->alloue[1] = 1;
+		sh->command[0] = '\0';
 	}
-	sh->alloue[1] = 1;
-	sh->command[0] = '\0';
+	s = tgetstr("me", NULL);
+	tputs(s, 1, ft_putchar_b);
+	s = tgetstr("ve", NULL);
+	tputs(s, 1, ft_putchar_b);
 	return (1);
 }
 
-int	get_cursor(t_sh *sh, int *rc)
+int	get_cursor(t_sh *sh, int *rc, int del)
 {
 	char buff[1];
 	int stop;
 	char *stock;
-	
+	char *s;
+
 	stock = NULL;
 	stop = 0;
+	s = tgetstr("vi", NULL);
+	tputs(s, 1, ft_putchar_b);
+	s = tgetstr("mk", NULL);
+	tputs(s, 1, ft_putchar_b);
 	write(1, "\033[6n", 7);
 	while (stop == 0)
 	{
@@ -100,7 +119,7 @@ int	get_cursor(t_sh *sh, int *rc)
 	rc[0] = get_row(stock);
 	rc[1] = get_column(stock);
 	free(stock);
-	if (replace_cursor(sh) == -1)
+	if (replace_cursor(sh, del) == -1)
 		return (-1);
 	return (1);
 }

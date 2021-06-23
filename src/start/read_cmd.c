@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 09:14:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 12:17:53 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "../../includes/lexer_parser.h"
 
 t_gestion_sig	g_my_sig;
+
+int	ft_putchar_b(int c)
+{
+
+	write(1, &c, 4);
+	return(1);
+}
 
 void	print_letter(t_sh *sh, char b, int *j, int *i)
 {
@@ -23,10 +30,28 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 		{
 			if (sh->command[*j - 1])
 			{
-				write(g_my_sig.fd_out, "\b \b", 3);
+
 				sh->command[*j - 1] = 0;
 				*j -= 1;
 				*i -= 1;
+				int rc[2];
+				char *s;
+				int new_row;
+				get_cursor(sh, rc, 0);
+				sh->tty_row = tgetnum("li");
+				sh->tty_col = tgetnum("co");
+				if (rc[1] == 1)
+				{
+					if (rc[0] > 1)
+						rc[0] = rc[0] - 2;
+					s = tgetstr("cm", NULL);
+					tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
+				}
+				write(g_my_sig.fd_out, "\b",1);
+				if (rc[0] == sh->init_cursor_r && rc[1] == sh->init_cursor_c)
+					return ;
+				s = tgetstr("dc", NULL);
+				tputs(s, 1, ft_putchar_b);
 			}
 		}
 		else
@@ -59,9 +84,9 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 		else if (b[k] == 27)
 		{
 			if (b[k + 2] && b[k + 2] == 65)
-				get_cursor(sh, rc); //write(2,"haut\n", 5);
+				get_cursor(sh, rc, 1); //write(2,"haut\n", 5);
 			if (b[k + 2] && b[k + 2] == 66)
-				get_cursor(sh, rc); //write(2, "bas\n", 4);
+				get_cursor(sh, rc, 1); //write(2, "bas\n", 4);
 			return (0);
 		}
 		print_letter(sh, b[k], j, i);
@@ -123,8 +148,11 @@ int	get_command(t_sh *sh)
 	while (++(ij[0]) < 4)
 		buff[ij[0]] = 0;
 	ij[0] = 2;
-//	get_cursor(sh);
 	pass_non_canonique(sh);
+	int rc[2];
+	get_cursor(sh, rc, 1);
+	sh->init_cursor_r = rc[0];
+	sh->init_cursor_c = rc[1];
 	while (stop != 1)
 	{
 		a = read(g_my_sig.fd_out, &buff, 4);

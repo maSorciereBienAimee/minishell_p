@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 14:44:19 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 10:56:15 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,25 @@ void	increase_shlvl(t_sh *sh)
 
 void	init_origin(t_sh *sh, char **envp)
 {
+
+	//	int ret;
+//	char *name_term = getenv("TERM");
+//
+//	if (name_term == NULL)
+//	{
+//		ft_error(sh, "'TERM' not set", NULL, NULL);
+//		exit(1);
+//	}
+//	ret = tgetent(NULL, name_term);
+//	if (ret < 1)
+//	{
+//		ft_error(sh, "Can't access to the termcap database", NULL, NULL);
+//		exit(1);
+//	}
+//	sh->tty_col = tgetnum("co");
+//	sh->tty_row = tgetnum("li");
+
+
 	sh->parent = 1;
 	sh->if_redir_cur = 1;
 	sh->in_read = 0;
