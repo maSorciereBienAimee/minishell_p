@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 12:17:53 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 14:42:15 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 				sh->tty_col = tgetnum("co");
 				if (rc[1] == 1)
 				{
-					if (rc[0] > 1)
+					if (rc[0] == sh->tty_row)
 						rc[0] = rc[0] - 2;
+					else if (rc[0] > 1 && rc[0] != sh->tty_row)
+						rc[0] = rc[0] - 1;
 					s = tgetstr("cm", NULL);
-					tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
+					tputs(tgoto(s, sh->tty_col+1, rc[0]), 1, ft_putchar_b);
 				}
-				write(g_my_sig.fd_out, "\b",1);
+				else
+					write(g_my_sig.fd_out, "\b",1);
 				if (rc[0] == sh->init_cursor_r && rc[1] == sh->init_cursor_c)
 					return ;
 				s = tgetstr("dc", NULL);
@@ -89,7 +92,16 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 				get_cursor(sh, rc, 1); //write(2, "bas\n", 4);
 			return (0);
 		}
-		print_letter(sh, b[k], j, i);
+		else
+		{
+			char c;
+			c = b[k];
+			b[0] = '\0';
+			b[1] = '\0';
+			b[2] = '\0';
+			b[3] = '\0';
+			print_letter(sh, c, j, i);
+		}
 		k++;
 	}
 	return (0);
@@ -144,7 +156,7 @@ int	get_command(t_sh *sh)
 	ij[0] = -1;
 	ij[1] = 0;
 	stop = 0;
-	write(1, "minishell $> ", 13);
+	write(1, "minishell $> ", 14);
 	while (++(ij[0]) < 4)
 		buff[ij[0]] = 0;
 	ij[0] = 2;

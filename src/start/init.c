@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 10:56:15 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 12:41:48 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ void	init_origin(t_sh *sh, char **envp)
 //	sh->tty_col = tgetnum("co");
 //	sh->tty_row = tgetnum("li");
 
-
+sh->init_cursor_r = 0;
+sh->init_cursor_c = 0;
 	sh->parent = 1;
 	sh->if_redir_cur = 1;
 	sh->in_read = 0;
