@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 08:55:42 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 14:23:47 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:11:35 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	get_cursor(t_sh *sh, int *rc, int del)
 	rc[0] = get_row(stock);
 	rc[1] = get_column(stock);
 	free(stock);
-	if (replace_cursor(sh, del, rc) == -1)
-		return (-1);
+//	if (replace_cursor(sh, del, rc) == -1)
+//		return (-1);
 	return (1);
 }

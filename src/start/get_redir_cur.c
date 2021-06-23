@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:52:20 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/17 10:40:35 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:02:48 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_arg_redir	*create_arg_redir(t_sh *sh, char *spl, int *i, t_arg_redir *previus)
 		ptr = (t_arg_redir *)malloc(sizeof(t_arg_redir));
 		if (!ptr)
 			ft_error(sh, strerror(errno), NULL, NULL);
-		ptr->str = get_redir_arg(sh, word);
+		ptr->str = get_redir_arg(sh, word, 0);
 		ptr->next = NULL;
 		ptr->prev = previus;
 		free(word);

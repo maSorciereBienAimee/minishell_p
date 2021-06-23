@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 15:38:12 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:07:17 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	print_letter(t_sh *sh, char b, int *j, int *i)
 	{
 		if (b == 127)
 		{
-			if (sh->command[*j - 1])
+		//	printf("sh-cmd: %s    %d\n", sh->command, *j);
+			if (*j - 1 >= 0)
 			{
-
 				sh->command[*j - 1] = 0;
 				*j -= 1;
 				*i -= 1;
@@ -82,9 +82,11 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 		else if (b[k] == 27)
 		{
 			if (b[k + 2] && b[k + 2] == 65)
-				get_cursor(sh, rc, 1); //write(2,"haut\n", 5);
+				fleche_haut(sh); //get_cursor(sh, rc, 1); //write(2,"haut\n", 5);
 			if (b[k + 2] && b[k + 2] == 66)
-				get_cursor(sh, rc, 1); //write(2, "bas\n", 4);
+				fleche_bas(sh); //write(2, "bas\n", 4);
+			(*j) = ft_len(sh->command) + 1;
+			(*i) = ft_len(sh->command) + 2;
 			return (0);
 		}
 		else
