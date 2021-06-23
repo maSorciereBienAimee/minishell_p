@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 20:07:02 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:07:26 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:05:49 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,15 @@ char	**stock_redir_cur(char **stock, char *c)
 	return (new);
 }
 
-char	**get_redir_arg(t_sh *sh, char *word)
+char	**get_redir_arg(t_sh *sh, char *word, int stop)
 {
 	char		*str;
-	t_actual	*temp;
 	char		**stock;
-	int			stop;
+	char	*new_word;
 
-	stop = 0;
 	str = NULL;
 	stock = NULL;
+	//parse new_word = sans guillemet
 	while (stop == 0)
 	{
 		str = my_readline(sh);
@@ -114,5 +113,16 @@ char	**get_redir_arg(t_sh *sh, char *word)
 		free(str);
 	}
 	fill_bis(str, NULL);
+	//check_if_quote(word, stock); a mettre dans ffill_bis
+	//{
+	//	int i;
+	//
+	//	i = 0;
+	//	while (stock[i])
+	//	{
+	//		check_quote_redir(word, );
+	//	}
+	//}
+	//dans check redir quote, verifier pour tout le tableau;
 	return (stock);
 }

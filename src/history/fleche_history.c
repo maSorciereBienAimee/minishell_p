@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 15:31:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:20:55 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,68 @@
 void	fleche_haut(t_sh *sh)
 {
 	int len;
-
-	if (!sh->history)
-		return ;
+	int rc[2];
+	int ligne;
+char *s;
+//	get_cursor(sh, rc, 0);
+//	ligne = rc[0] - sh->init_cursor_r;
+//	printf("");
+//if (ligne > 1)
+//{	s = tgetstr("cm", NULL);
+//	tputs(tgoto(s, 1, sh->init_cursor_r + 1), 1, ft_putchar_b);
+//	s = tgetstr("dl", NULL);
+//		tputs(s, ligne, ft_putchar_b);
+//}
+int i ;
+i = ft_len(sh->command);
+while (i>0)
+{
+	//printf("rentre\n");
+		get_cursor(sh, rc, 0);
+				sh->tty_row = tgetnum("li");
+				sh->tty_col = tgetnum("co");
+				if (rc[1] == 1)
+				{
+					rc[0] = rc[0] - 2;
+					s = tgetstr("cm", NULL);
+					tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
+				}
+				else
+					write(g_my_sig.fd_out, "\b",1);
+				s = tgetstr("dc", NULL);
+				tputs(s, 1, ft_putchar_b);
+i--;
+}
+		get_cursor(sh, rc, 0);
+	//s = tgetstr("cm", NULL);
+//tputs(tgoto(s, rc[1], rc[0]), 1, ft_putchar_b);
+/*
+while (rc[0] != sh->init_cursor_r && rc[1] != sh->init_cursor_c)
+{
+//        printf("rentre\n");
+                                sh->tty_row = tgetnum("li");
+                                sh->tty_col = tgetnum("co");
+                                if (rc[1] == 1)
+                                {
+                                        rc[0] = rc[0] - 2;
+                                        s = tgetstr("cm", NULL);
+                                        tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
+                                }
+                                else
+                                        write(g_my_sig.fd_out, "\b",1);
+                                s = tgetstr("dc", NULL);
+                                tputs(s, 1, ft_putchar_b);
+                get_cursor(sh, rc, 0);
+}
+*/
+//	s = tgetstr("cm", NULL);
+//tputs(tgoto(s, sh->init_cursor_c, sh->init_cursor_r), 1, ft_putchar_b);
+//s = tgetstr("ce", NULL);
+//		tputs(s, 1, ft_putchar_b);
+//s = tgetstr("dc", NULL);
+//		tputs(s, 1, ft_putchar_b);
+//	if (!sh->history)
+//		return ;
 	if (sh->in_read == 0)
 	{
 		while (sh->history->next != NULL)
@@ -36,7 +95,7 @@ void	fleche_haut(t_sh *sh)
 		//len = ft_len(sh->command);
 		//	while (len >= 0)
 		//		write(g_my_sig.fd_out, "\b\0\b", 3);
-			write(g_my_sig.fd_out, sh->history->cmd, ft_len(sh->history->cmd));
+			write(0, sh->history->cmd, ft_len(sh->history->cmd));
 			sh->command = copy_char(sh, sh->command, sh->history->cmd);
 		}
 	}
@@ -55,9 +114,39 @@ void	fleche_haut(t_sh *sh)
 void	fleche_bas(t_sh *sh)
 {
 	int len;
+int i ;
+        int rc[2];
+        int ligne;
+char *s;
 
-	if (!sh->history)
-		return ;
+i = ft_len(sh->command);
+                get_cursor(sh, rc, 0);
+while (rc[0] != sh->init_cursor_r && rc[1] != sh->init_cursor_c)
+{
+  //      printf("rentre\n");
+                                sh->tty_row = tgetnum("li");
+                                sh->tty_col = tgetnum("co");
+                                if (rc[1] == 1)
+                                {
+                                        rc[0] = rc[0] - 2;
+                                        s = tgetstr("cm", NULL);
+                                        tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
+                                }
+                                else
+                                        write(g_my_sig.fd_out, "\b",1);
+                                s = tgetstr("dc", NULL);
+                                tputs(s, 1, ft_putchar_b);
+                get_cursor(sh, rc, 0);
+}
+        s = tgetstr("cm", NULL);
+tputs(tgoto(s, sh->init_cursor_c, sh->init_cursor_r), 1, ft_putchar_b);
+s = tgetstr("ce", NULL);
+                tputs(s, 1, ft_putchar_b);
+s = tgetstr("dc", NULL);
+                tputs(s, 1, ft_putchar_b);
+
+//	if (!sh->history)
+//		return ;
 	if (sh->history->next != NULL)
 	{
 		sh->history = sh->history->next;
