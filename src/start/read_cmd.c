@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:07:17 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/23 19:27:46 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 				fleche_haut(sh); //get_cursor(sh, rc, 1); //write(2,"haut\n", 5);
 			if (b[k + 2] && b[k + 2] == 66)
 				fleche_bas(sh); //write(2, "bas\n", 4);
-			(*j) = ft_len(sh->command) + 1;
-			(*i) = ft_len(sh->command) + 2;
+			(*j) = ft_len(sh->command);
+			(*i) = ft_len(sh->command) + 1;
 			return (0);
 		}
 		else
