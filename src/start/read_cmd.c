@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:05:24 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 18:31:13 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	read_quit(t_sh *sh, int a, char *buff)
 
 int	prepare_command(t_sh *sh)
 {
+	while (sh->history->prev != NULL)
+		sh->history = sh->history->prev;
 	sh->in_read = 0;
 	tcsetattr(0, TCSANOW, &sh->old_tty);
 	add_line_to_history(sh->history, sh->command);
