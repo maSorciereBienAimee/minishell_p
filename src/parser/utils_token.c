@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:56:05 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/14 16:58:21 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 16:26:06 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_token(t_token *list)
 {
 	const char	type[9][15] = {"Text", "Whitespace", "Dirin", "Dirout",
 		"Pipe", "End_cmd", "Escape", "Quote_text", "Dquote_text"};
-	
+
 	ft_putstr("----------------------print-token---------------------------\n");
 	if (list->data == NULL)
 		ft_putstr("No tokens.\n");
@@ -26,8 +26,6 @@ void	print_token(t_token *list)
 		if (list->data != NULL)
 		{
 			printf("%s : [%s]\n", type[list->type], list->data);
-			//if (list->prev != NULL)
-			//	printf("prev %s : [%s]\n", type[list->prev->type], list->prev->data);
 		}
 		list = list->next;
 	}
@@ -36,15 +34,17 @@ void	print_token(t_token *list)
 
 t_token	*init_token(char *insert)
 {
-	t_token *token;
+	t_token	*token;
 
-	if ((token = malloc(sizeof(t_token))) == NULL)
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
 		return (NULL);
 	if (insert == NULL)
 		token->data = NULL;
 	else
 	{
-		if ((token->data = ft_strdup(insert)) == NULL)
+		token->data = ft_strdup(insert);
+		if (token->data == NULL)
 			return (NULL);
 	}
 	token->prev = NULL;
@@ -60,17 +60,10 @@ void	lst_push_back(t_token *list, t_token *new)
 	new->prev = list;
 }
 
-t_token			*get_last_token(t_token *token)
-{
-	while (token->next != NULL)
-		token = token->next;
-	return (token);
-}
-
-int		add_token(t_token *list, char *item, char first, int size)
+int	add_token(t_token *list, char *item, char first, int size)
 {
 	t_token		*new;
-	t_tokentype value;
+	t_tokentype	value;
 	char		tmp;
 
 	if (first == QUOTE || first == DQUOTE)
@@ -80,13 +73,13 @@ int		add_token(t_token *list, char *item, char first, int size)
 	value = get_type(first);
 	if (list->data == NULL)
 	{
-		if ((list->data = ft_strdup(item)) == NULL)
-			return (-1);
+		list->data = ft_strdup(item);
 		list->type = value;
 		item[size] = tmp;
 		return (0);
 	}
-	if ((new = init_token(item)) == NULL)
+	new = init_token(item);
+	if (new == NULL)
 		return (-1);
 	lst_push_back(list, new);
 	new->type = value;
@@ -97,8 +90,8 @@ int		add_token(t_token *list, char *item, char first, int size)
 
 void	free_token(t_token *list)
 {
-	t_token *tmp;
-	
+	t_token	*tmp;
+
 	while (list != NULL)
 	{
 		if (list->data != NULL)

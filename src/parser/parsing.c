@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:33:26 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/18 15:12:40 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 16:13:07 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	adjust_type(t_tokentype type)
 	return (type);
 }
 
-static int  state_machine(t_state state, t_tokentype type)
+static int	state_machine(t_state state, t_tokentype type)
 {
 	const int	machine[5][6] =
 	{
@@ -32,6 +32,7 @@ static int  state_machine(t_state state, t_tokentype type)
 		{EAT, OUTPUT, ERROR, FLUX, ERROR, ERROR},
 		{EAT, FLUX, ERROR, ERROR, ERROR, ERROR},
 	};
+
 	type = adjust_type(type);
 	return (machine[state][type]);
 }
@@ -40,12 +41,12 @@ static void	print_syntax_error(t_tokentype old_type, t_tokentype type)
 {
 	ft_putstr_fd("minishell : ", 2);
 	if (type == Dirin)
-			ft_putstr_fd("syntax error : near unexpected token `<'\n", 2);
+		ft_putstr_fd("syntax error : near unexpected token `<'\n", 2);
 	if (type == Dirout)
-			ft_putstr_fd("syntax error : near unexpected token `>'\n", 2);
+		ft_putstr_fd("syntax error : near unexpected token `>'\n", 2);
 	if (type == Pipe)
 	{
-		if (old_type == type)	
+		if (old_type == type)
 			ft_putstr_fd("syntax error : near unexpected token `||'\n", 2);
 		else
 			ft_putstr_fd("syntax error : near unexpected token `|'\n", 2);
@@ -59,11 +60,11 @@ static void	print_syntax_error(t_tokentype old_type, t_tokentype type)
 	}
 }
 
-int			parsing(t_token *token)
+int	parsing(t_token *token)
 {
 	t_token		*tmp;
 	t_state		current_state;
-	t_tokentype old_type;
+	t_tokentype	old_type;
 
 	current_state = START;
 	old_type = -1;
@@ -85,5 +86,5 @@ int			parsing(t_token *token)
 		ft_putstr_fd("syntax error : near unexpected `newline'\n", 2);
 		return (-1);
 	}
-	return (0);	
+	return (0);
 }
