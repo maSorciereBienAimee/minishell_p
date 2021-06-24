@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:58:24 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 18:16:43 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:49:46 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ int	free_no_fork(t_sh *sh, t_actual *temp, char **lst, int ret)
 		sh->last_exit = sh->code;
 	}
 	return (ret);
+}
+
+int	exec_no_fork_suite(t_sh *sh, t_actual *temp, char **lst, int j)
+{
+	if (ft_comp(temp->str_arg[0], "history") == 0 && temp->arg_command > 1)
+	{
+		history_command(sh, lst, temp);
+		return (free_no_fork(sh, temp, lst, 1));
+	}
+	if (ft_comp(temp->str_arg[0], "export") == 0 && temp->arg_command > 1)
+	{
+		export_command(sh, NULL, lst, temp);
+		return (free_no_fork(sh, temp, lst, 1));
+	}
+	return (0);
 }
 
 int	exec_or_not_no_fork(t_sh *sh, t_actual *temp, char **lst, int j)
@@ -41,16 +56,8 @@ int	exec_or_not_no_fork(t_sh *sh, t_actual *temp, char **lst, int j)
 		exit_command(sh, lst, temp);
 		return (free_no_fork(sh, temp, lst, 1));
 	}
-	if (ft_comp(temp->str_arg[0], "history") == 0 && temp->arg_command > 1)
-	{
-		history_command(sh, lst, temp);
-		return (free_no_fork(sh, temp, lst, 1));
-	}
-	if (ft_comp(temp->str_arg[0], "export") == 0 && temp->arg_command > 1)
-	{
-		export_command(sh, NULL, lst, temp);
-		return (free_no_fork(sh, temp, lst, 1));
-	}
+	if (exec_no_fork_suite(sh, temp, lst, j) == 1)
+		return (1);
 	dup2(sh->save_stdout, 1);
 	ft_free_tab(lst);
 	ft_free_lst_cmd(&temp);

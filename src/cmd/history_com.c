@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 12:07:04 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 16:40:51 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 15:38:08 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_nb(char *str)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (str[0] == '-')
@@ -33,30 +33,17 @@ int	check_nb(char *str)
 	return (1);
 }
 
-void	delete_row(t_sh *sh, char **lst, int *i)
-{
-	//while	(check_nb(lst[*i]) == 1)
-	//{
-	
-//	}
-}
-
 void	history_command(t_sh *sh, char **lst_arg, t_actual *actu)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (lst_arg[1] == NULL)
 		return (print_history(sh->history));
 	while (lst_arg[i])
 	{
-		//if (ft_comp(lst_arg[i], "-a") == 0)
 		if (ft_comp(lst_arg[i], "-c") == 0)
 			return (clean_history(sh->history));
-		if (ft_comp(lst_arg[i], "-d") == 0)
-			return (delete_row(sh, lst_arg, &i));
-	//	else if (ft_comp(lst_arg[i], "-r") == 0)
-	//	else if (ft_comp(lst_arg[i], "-w") == 0)
 		else
 		{
 			ft_error(sh, "invalid option", "history", lst_arg[i]);

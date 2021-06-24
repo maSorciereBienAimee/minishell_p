@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:56:31 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 18:18:46 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 17:14:03 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	which_cmd(t_sh *sh, char *spl, char **lst_arguments)
 	if (ft_comp(lst_arguments[0], "exit") == 0)
 		exit_command(sh, lst_arguments, sh->actu);
 	else if (ft_comp(lst_arguments[0], "history") == 0)
-		history_command(sh, lst_arguments, sh->actu); //print_history(sh->history);
+		history_command(sh, lst_arguments, sh->actu);
 	else if (ft_comp(lst_arguments[0], "pwd") == 0)
 		pwd_command(sh, spl);
 	else if (ft_comp(lst_arguments[0], "export") == 0)

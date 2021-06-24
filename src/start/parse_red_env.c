@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 14:30:04 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 15:13:42 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:51:11 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_env_apply(char *word, char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (word[i])
@@ -35,8 +35,8 @@ int	is_env_apply(char *word, char *str)
 
 int	count_red_env(t_sh *sh, char *str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = 0;
@@ -44,7 +44,7 @@ int	count_red_env(t_sh *sh, char *str)
 	{
 		if (str[i] == '$')
 			count += count_letter_env(sh, str, &i);
-		else 
+		else
 			count++;
 		i++;
 	}
@@ -53,7 +53,7 @@ int	count_red_env(t_sh *sh, char *str)
 
 void	fill_red_env(t_sh *sh, char *old, char **new)
 {
-	int ij[2];
+	int	ij[2];
 
 	ij[0] = 0;
 	ij[1] = -1;
@@ -71,16 +71,16 @@ void	fill_red_env(t_sh *sh, char *old, char **new)
 
 char	*get_new_red(t_sh *sh, char *stock)
 {
-	int i;
-	char *new;
-	int count;
+	int		i;
+	char	*new;
+	int		count;
 
 	i = 0;
 	count = count_red_env(sh, stock);
 	new = (char *)malloc(sizeof(char) * (count + 1));
 	if (!new)
 		return (NULL);
-	fill_red_env(sh,stock, &new);
+	fill_red_env(sh, stock, &new);
 	new[count] = '\0';
 	free(stock);
 	return (new);
@@ -88,9 +88,11 @@ char	*get_new_red(t_sh *sh, char *stock)
 
 void	parse_redir(t_sh *sh, char *word, char **stock)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	if (stock == NULL)
+		return ;
 	while (stock[i])
 	{
 		if (is_env_apply(word, stock[i]) == 1)

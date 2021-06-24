@@ -6,11 +6,17 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 08:55:42 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:11:35 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:57:29 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+
+int	ft_putchar_b(int c)
+{
+	write(1, &c, 4);
+	return (1);
+}
 
 char	*add_stock(char c, char *str)
 {
@@ -65,34 +71,6 @@ int	get_row(char *str)
 	return (row);
 }
 
-int	replace_cursor(t_sh *sh, int del, int *rc)
-{
-	char *s;
-//	sh->tty_row = tgetnum("li");
-//	sh->tty_col = tgetnum("co");
-//	if (rc[1] == 1)
-//	{
-//		if (rc[0] > 1)
-//			rc[0] = rc[0] - 1;
-//		s = tgetstr("cm", NULL);
-//		tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
-//	}
-	if (del == 1)
-	{
-		free(sh->command);
-		sh->alloue[1] = 0;
-		sh->command = (char *)malloc(sizeof(char) * 1);
-		if (!sh->command)
-		{
-			ft_error(sh, strerror(errno), NULL, NULL);
-			return (-1);
-		}
-		sh->alloue[1] = 1;
-		sh->command[0] = '\0';
-	}
-	return (1);
-}
-
 int	get_cursor(t_sh *sh, int *rc, int del)
 {
 	char buff[1];
@@ -114,7 +92,5 @@ int	get_cursor(t_sh *sh, int *rc, int del)
 	rc[0] = get_row(stock);
 	rc[1] = get_column(stock);
 	free(stock);
-//	if (replace_cursor(sh, del, rc) == -1)
-//		return (-1);
 	return (1);
 }

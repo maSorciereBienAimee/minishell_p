@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 10:59:31 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:02:50 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,42 +100,19 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_sh	sh;
 	pid_t	pid;
-	t_hist	*history;
 	int		a;
+	char	*name_term;
 
 	if (argc != 1)
 		write(2, "Wrong number of arguments\n", 26);
-int ret;
-	char *name_term = getenv("TERM");
-	
-	if (name_term == NULL)
-	{
-		ft_error(&sh, "'TERM' not set", NULL, NULL);
-		exit(1);
-	}
-	ret = tgetent(NULL, name_term);
-	if (ret < 1)
-	{
-		ft_error(&sh, "Can't access to the termcap database", NULL, NULL);
-		exit(1);
-	}
-	sh.tty_col = tgetnum("co");
-	sh.tty_row = tgetnum("li");
-
-
-	init_origin(&sh, envp);
+	name_term = getenv("TERM");
+	init_origin(&sh, envp, name_term);
 	if (sh.alloue[4] == 1)
 		ft_free_list(&sh.var_env);
 	sh.alloue[4] = 0;
-	if ((history = build_history(1)) == NULL)
-	{
-		ft_putstr_fd("Error allocation failed\n", 2);			// a gerer
-		return (EXIT_FAILURE);
-	}
 	while (sh.exit == 0)
 	{
 		init_sh(&sh, sh.tab_env);
-		sh.history = history;
 		a = get_command(&sh);
 		if (g_my_sig.restart == 1)
 			write(2, "\n", 1);
@@ -143,11 +120,5 @@ int ret;
 			run_commande(&sh);
 		my_free(&sh);
 	}
-	if (sh.alloue[7] == 1)
-		ft_free_tab(sh.tab_env);
-	close(sh.save_stdout);
-	write(2, "exit\n", 5);
-	write_history(history);
-	free_history(history);
-	exit(sh.last_exit);
+	my_exit_final(&sh);
 }

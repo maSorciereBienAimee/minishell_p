@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 12:41:48 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:00:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,36 @@ void	increase_shlvl(t_sh *sh)
 	sh->var_env = temp;
 }
 
-void	init_origin(t_sh *sh, char **envp)
+void	init_term(t_sh *sh, char *name)
 {
+	int	ret;
 
-	//	int ret;
-//	char *name_term = getenv("TERM");
-//
-//	if (name_term == NULL)
-//	{
-//		ft_error(sh, "'TERM' not set", NULL, NULL);
-//		exit(1);
-//	}
-//	ret = tgetent(NULL, name_term);
-//	if (ret < 1)
-//	{
-//		ft_error(sh, "Can't access to the termcap database", NULL, NULL);
-//		exit(1);
-//	}
-//	sh->tty_col = tgetnum("co");
-//	sh->tty_row = tgetnum("li");
+	if (name == NULL)
+	{
+		ft_error(sh, "'TERM' not set", NULL, NULL);
+		exit(1);
+	}
+	ret = tgetent(NULL, name);
+	if (ret < 1)
+	{
+		ft_error(sh, "Can't access to the termcap database", NULL, NULL);
+		exit(1);
+	}
+	sh->tty_col = tgetnum("co");
+	sh->tty_row = tgetnum("li");
+}
 
-sh->init_cursor_r = 0;
-sh->init_cursor_c = 0;
+void	init_origin(t_sh *sh, char **envp, char *name)
+{
+	init_term(sh, name);
+	sh->history = build_history(1);
+	if (sh->history == NULL)
+	{
+		ft_putstr_fd("Error allocation failed\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	sh->init_cursor_r = 0;
+	sh->init_cursor_c = 0;
 	sh->parent = 1;
 	sh->if_redir_cur = 1;
 	sh->in_read = 0;
@@ -129,14 +137,4 @@ sh->init_cursor_c = 0;
 	sh->alloue[7] = 1;
 	increase_shlvl(sh);
 	transform_env_tab(sh);
-}
-
-void	init_meta(t_actual *ptr)
-{
-	ptr->pipe = 0;
-	ptr->append = 0;
-	ptr->redir_cur = 0;
-	ptr->redir_out = 0;
-	ptr->redir_in = 0;
-	ptr->no_suite = 0;
 }

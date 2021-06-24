@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:39:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 17:05:24 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,87 +14,6 @@
 #include "../../includes/lexer_parser.h"
 
 t_gestion_sig	g_my_sig;
-
-int	ft_putchar_b(int c)
-{
-
-	write(1, &c, 4);
-	return(1);
-}
-
-void	print_letter(t_sh *sh, char b, int *j, int *i)
-{
-	if (b >= 32)
-	{
-		if (b == 127)
-		{
-		//	printf("sh-cmd: %s    %d\n", sh->command, *j);
-			if (*j - 1 >= 0)
-			{
-				sh->command[*j - 1] = 0;
-				*j -= 1;
-				*i -= 1;
-				int rc[2];
-				char *s;
-				int new_row;
-				get_cursor(sh, rc, 0);
-				sh->tty_row = tgetnum("li");
-				sh->tty_col = tgetnum("co");
-				if (rc[1] == 1)
-				{
-					rc[0] = rc[0] - 2;
-					s = tgetstr("cm", NULL);
-					tputs(tgoto(s, sh->tty_col, rc[0]), 1, ft_putchar_b);
-				}
-				else
-					write(g_my_sig.fd_out, "\b",1);
-				s = tgetstr("dc", NULL);
-				tputs(s, 1, ft_putchar_b);
-			}
-		}
-		else
-		{
-			write(g_my_sig.fd_out, &b, 1);
-			sh->command = stock_tab(sh, sh->command, *i);
-			sh->command[*j] = b;
-			sh->command[*i - 1] = '\0';
-			(*i)++;
-			(*j)++;
-		}
-	}
-}
-
-int	check_touche(t_sh*sh, char *b, int *j, int *i)
-{
-	int	k;
-	int rc[2];
-
-	k = 0;
-	while (k < 4)
-	{
-		if (b[k] == '\n' || b[k] == 4)
-		{
-			write(g_my_sig.fd_out, "\n\r", 2);
-			return (1);
-		}
-		else if (b[k] == 28)
-			return (0);
-		else if (b[k] == 27)
-		{
-			if (b[k + 2] && b[k + 2] == 65)
-				fleche_haut(sh); //get_cursor(sh, rc, 1); //write(2,"haut\n", 5);
-			if (b[k + 2] && b[k + 2] == 66)
-				fleche_bas(sh); //write(2, "bas\n", 4);
-			(*j) = ft_len(sh->command);
-			(*i) = ft_len(sh->command) + 2;
-			return (0);
-		}
-		else
-			print_letter(sh, b[k], j, i);
-		k++;
-	}
-	return (0);
-}
 
 int	read_quit(t_sh *sh, int a, char *buff)
 {
@@ -127,6 +46,8 @@ int	read_quit(t_sh *sh, int a, char *buff)
 
 int	prepare_command(t_sh *sh)
 {
+	sh->in_read = 0;
+	tcsetattr(0, TCSANOW, &sh->old_tty);
 	add_line_to_history(sh->history, sh->command);
 	if (start_parsing(sh->command) == -1)
 		return (-1);
@@ -150,10 +71,6 @@ int	get_command(t_sh *sh)
 		buff[ij[0]] = 0;
 	ij[0] = 2;
 	pass_non_canonique(sh);
-	int rc[2];
-	get_cursor(sh, rc, 1);
-	sh->init_cursor_r = rc[0];
-	sh->init_cursor_c = rc[1];
 	while (stop != 1)
 	{
 		a = read(g_my_sig.fd_out, &buff, 4);
@@ -165,7 +82,5 @@ int	get_command(t_sh *sh)
 		while (++a < 4)
 			buff[a] = 0;
 	}
-	sh->in_read = 0;
-	tcsetattr(0, TCSANOW, &sh->old_tty);
 	return (prepare_command(sh));
 }
