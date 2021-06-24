@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 08:55:42 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:57:29 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 17:48:32 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_putchar_b(int c)
 
 char	*add_stock(char c, char *str)
 {
-	char *new;
-	int i;
+	char	*new;
+	int		i;
 
 	if (str == NULL)
 	{
@@ -48,23 +48,24 @@ char	*add_stock(char c, char *str)
 
 int	get_column(char *str)
 {
-	int i;
-	int colonne;;
+	int	i;
+	int	colonne;
 
 	i = 0;
-	while(str[i] != ';')
+	while (str[i] != ';')
 		i++;
 	i++;
 	colonne = ft_atoi(&str[i]);
 	return (colonne);
 }
+
 int	get_row(char *str)
 {
-	int i;
-	int row;
+	int	i;
+	int	row;
 
-	i =0;
-	while(str[i] != '[')
+	i = 0;
+	while (str[i] != '[')
 		i++;
 	i++;
 	row = ft_atoi(&str[i]);
@@ -73,10 +74,10 @@ int	get_row(char *str)
 
 int	get_cursor(t_sh *sh, int *rc, int del)
 {
-	char buff[1];
-	int stop;
-	char *stock;
-	char *s;
+	char	buff[1];
+	int		stop;
+	char	*stock;
+	char	*s;
 
 	stock = NULL;
 	stop = 0;
@@ -84,7 +85,7 @@ int	get_cursor(t_sh *sh, int *rc, int del)
 	while (stop == 0)
 	{
 		read(0, &buff, 1);
-		stock= add_stock(buff[0], stock);
+		stock = add_stock(buff[0], stock);
 		if (buff[0] == 'R')
 			stop = 1;
 		buff[0] = '0';

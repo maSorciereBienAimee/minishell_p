@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:36:03 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 17:47:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,7 @@ char		*parse_delimiteur(t_sh *sh, char *str);
 int			count_letter_env(t_sh *sh, char *spl, int *i);
 void		case_env(t_sh *sh, int *ij, char *s, char **to_fill);
 void		parse_redir(t_sh *sh, char *word, char **stock);
-
-void	my_exit_final(t_sh *sh);
-int	check_touche(t_sh *sh, char *b, int *j, int *i);
+void		my_exit_final(t_sh *sh);
+int			check_touche(t_sh *sh, char *b, int *j, int *i);
 
 #endif
