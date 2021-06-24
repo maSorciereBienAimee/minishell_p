@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:02:50 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 18:26:09 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ void	run_commande(t_sh *sh)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_sh	sh;
-	pid_t	pid;
 	int		a;
 	char	*name_term;
 
 	if (argc != 1)
+	{
 		write(2, "Wrong number of arguments\n", 26);
+		exit(1);
+	}
 	name_term = getenv("TERM");
 	init_origin(&sh, envp, name_term);
 	if (sh.alloue[4] == 1)
