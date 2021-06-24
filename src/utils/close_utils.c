@@ -6,11 +6,22 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:37:53 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 15:56:58 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+
+void	my_exit_final(t_sh *sh)
+{
+	if (sh->alloue[7] == 1)
+		ft_free_tab(sh->tab_env);
+	close(sh->save_stdout);
+	write(2, "exit\n", 5);
+	write_history(sh->history);
+	free_history(sh->history);
+	exit(sh->last_exit);
+}
 
 void	wait_exit(t_sh *sh)
 {
@@ -67,4 +78,14 @@ void	suite_redir(t_sh *sh)
 		sh->redir = sh->redir->next;
 		sh->stock_redir_arg = sh->redir->arg;
 	}
+}
+
+void    init_meta(t_actual *ptr)
+{
+	ptr->pipe = 0;
+	ptr->append = 0;
+	ptr->redir_cur = 0;
+	ptr->redir_out = 0;
+	ptr->redir_in = 0;
+	ptr->no_suite = 0;
 }

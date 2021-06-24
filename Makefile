@@ -4,6 +4,7 @@ FLAGS = -Wall -Werror -Wextra #-fsanitize=address
 INC = -lncurses
 SRCS = src/start/main.c \
        src/start/init.c \
+       src/start/check_touch.c \
        src/start/arg_in_tab.c \
        src/start/parse_red_env.c \
        src/start/define_delimit.c \

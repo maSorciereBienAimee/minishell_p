@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:08:01 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 15:54:42 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		analyse_command(t_sh *sh, char *spl);
 int			get_command(t_sh *sh);
 void		actual_path(t_sh *sh);
 void		init_sh(t_sh *sh, char **envp);
-void		init_origin(t_sh *sh, char **envp);
+void		init_origin(t_sh *sh, char **envp, char *name);
 void		init_variable(t_sh *sh, char **envp);
 t_list_env	*create_new_env(t_sh *sh, char *envp);
 void		get_value_env(t_sh *sh, t_list_env *ptr, char *envp, int i);

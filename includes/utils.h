@@ -192,4 +192,7 @@ int			count_letter_env(t_sh *sh, char *spl, int *i);
 void		case_env(t_sh *sh, int *ij, char *s, char **to_fill);
 void		parse_redir(t_sh *sh, char *word, char **stock);
 
+void	my_exit_final(t_sh *sh);
+int	check_touche(t_sh *sh, char *b, int *j, int *i);
+
 #endif
