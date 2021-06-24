@@ -5,6 +5,7 @@ INC = -lncurses
 SRCS = src/start/main.c \
        src/start/init.c \
        src/start/arg_in_tab.c \
+       src/start/define_delimit.c \
        src/start/arg_in_tab_b.c \
        src/start/read_cmd.c \
        src/start/execute.c \

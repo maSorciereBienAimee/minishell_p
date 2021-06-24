@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:55:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 23:07:55 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 12:57:14 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ char	*my_readline(t_sh *sh)
 	while (stop != 1)
 	{
 		a = read(g_my_sig.fd_out, &buff, 4);
-		if (a == 0 && buff[0] == 0)
+		if (a < 0 || (a == 0 && buff[0] == 0))
 		{
+			if (a == 0)
+				write(2, "minishell : closed by EOF\n", 26);
 			free(str);
 			return (NULL);
 		}

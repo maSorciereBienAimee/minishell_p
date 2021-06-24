@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:03:19 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 12:24:04 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,4 +187,5 @@ void    fleche_bas(t_sh *sh);
 void    fleche_haut(t_sh *sh);
 void    history_command(t_sh *sh, char **lst_arg, t_actual *actu);
 int    get_cursor(t_sh *sh, int *rc, int del);
+char *parse_delimiteur(t_sh *sh, char *str);
 #endif

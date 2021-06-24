@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 20:07:02 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:05:49 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 12:57:03 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,12 @@ char	**get_redir_arg(t_sh *sh, char *word, int stop)
 
 	str = NULL;
 	stock = NULL;
-	//parse new_word = sans guillemet
+	new_word = parse_delimiteur(sh, word);
 	while (stop == 0)
 	{
 		str = my_readline(sh);
-		if (str == NULL || (ft_comp(str, word) == 0))
+		if (str == NULL || (ft_comp(str, new_word) == 0))
 		{
-			if (str == NULL)
-				write(2, "Closed by EOF\n", 14);
 			stop = 1;
 			break ;
 		}
@@ -112,6 +110,7 @@ char	**get_redir_arg(t_sh *sh, char *word, int stop)
 			ft_error(sh, strerror(errno), NULL, NULL);
 		free(str);
 	}
+	free(new_word);
 	fill_bis(str, NULL);
 	//check_if_quote(word, stock); a mettre dans ffill_bis
 	//{
