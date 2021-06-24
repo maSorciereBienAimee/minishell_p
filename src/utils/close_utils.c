@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 15:56:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 17:47:21 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	suite_redir(t_sh *sh)
 	}
 }
 
-void    init_meta(t_actual *ptr)
+void	init_meta(t_actual *ptr)
 {
 	ptr->pipe = 0;
 	ptr->append = 0;

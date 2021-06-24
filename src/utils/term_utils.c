@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 18:00:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:55:21 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 17:47:02 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pass_non_canonique(t_sh *sh)
 {
-	int rc[2];
+	int	rc[2];
 
 	tcgetattr(0, &sh->old_tty);
 	ft_bzero(&sh->new_tty, sizeof(sh->new_tty));

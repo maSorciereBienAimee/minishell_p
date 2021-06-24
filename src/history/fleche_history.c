@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:09:05 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 17:44:40 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	replace_delete(t_sh *sh)
 	char	*s;
 	int		r;
 	int		rc[2];
-	int		mod;
 
 	get_cursor(sh, rc, 0);
 	r = rc[0] - 1;
