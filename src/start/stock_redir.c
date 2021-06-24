@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 20:07:02 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 12:57:03 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 15:07:44 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char	**get_redir_arg(t_sh *sh, char *word, int stop)
 	}
 	free(new_word);
 	fill_bis(str, NULL);
+	parse_redir(sh, word, stock);
 	//check_if_quote(word, stock); a mettre dans ffill_bis
 	//{
 	//	int i;
