@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 12:34:52 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/22 15:48:38 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 16:32:20 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-typedef struct		s_hist
+typedef struct s_hist
 {
 	int				nb;
 	int				exist;

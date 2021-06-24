@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 15:08:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:36:03 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,52 +51,52 @@ typedef struct s_list_env
 
 typedef struct s_sh
 {
-	int	tty_col;
-	int tty_row;
-	int	init_cursor_r;
-	int init_cursor_c;
+	int				tty_col;
+	int				tty_row;
+	int				init_cursor_r;
+	int				init_cursor_c;
 	struct termios	old_tty;
 	struct termios	new_tty;
-	int	in_read;
-	int			parent;
-	int			save_stdout;
-	int			code;
-	char		*path;
-	int			exit;
-	int			i;
-	int			last_exit;
-	char		*result;
-	t_list_env	*var_env;
-	char		**tab_env;
-	int			size_path;
-	int			alloue[13];
-	int			fd_pipe[2];
-	int			fd_redir[2];
-	int			fd_in;
-	int			fd_out;
-	char		*command;
-	char		**spl;
-	int			end_cmd;
-	pid_t		fils_pid;
-	int			read_pipe;
-	int			ready;
-	int			stop;
-	int			test_exec;
-	int			if_redir_cur;
-	t_redir_cur	*redir;
-	t_redir_cur	*stock_redir;
-	t_arg_redir	*stock_redir_arg;
-	t_actual	*actu;
-	t_actual	*stock_actu;
-	t_actual	*stock_for_pipe;
-	t_hist		*history;
+	int				in_read;
+	int				parent;
+	int				save_stdout;
+	int				code;
+	char			*path;
+	int				exit;
+	int				i;
+	int				last_exit;
+	char			*result;
+	t_list_env		*var_env;
+	char			**tab_env;
+	int				size_path;
+	int				alloue[13];
+	int				fd_pipe[2];
+	int				fd_redir[2];
+	int				fd_in;
+	int				fd_out;
+	char			*command;
+	char			**spl;
+	int				end_cmd;
+	pid_t			fils_pid;
+	int				read_pipe;
+	int				ready;
+	int				stop;
+	int				test_exec;
+	int				if_redir_cur;
+	t_redir_cur		*redir;
+	t_redir_cur		*stock_redir;
+	t_arg_redir		*stock_redir_arg;
+	t_actual		*actu;
+	t_actual		*stock_actu;
+	t_actual		*stock_for_pipe;
+	t_hist			*history;
 }				t_sh;
 
 void		ft_putchar(char c);
 void		ft_putnbr(int n);
 void		ft_putstr(char *str);
 void		ft_putstr_fd(char *str, int fd);
-int		ft_putchar_b(int c);
+int			ft_putchar_b(int c);
 char		*my_realloc(t_sh *sh, char *buff, int i);
 void		my_exit(t_sh *sh);
 void		ft_error(t_sh *sh, char *str, char *cmd, char *pb);
@@ -181,14 +181,15 @@ void		suite_redir(t_sh *sh);
 int			is_pipe(t_sh *sh, t_actual *temp);
 int			redir_current_b(t_sh *sh, char *spl, t_actual *ac, t_actual *sto);
 void		redir_current(t_sh *sh, char *spl);
-void	ft_bzero(void *s, size_t n);
-void	pass_non_canonique(t_sh *sh);
-void    fleche_bas(t_sh *sh);
-void    fleche_haut(t_sh *sh);
-void    history_command(t_sh *sh, char **lst_arg, t_actual *actu);
-int    get_cursor(t_sh *sh, int *rc, int del);
-char *parse_delimiteur(t_sh *sh, char *str);
-int	count_letter_env(t_sh *sh, char *spl, int *i);
-void	case_env(t_sh *sh, int *ij, char *s, char **to_fill);
-void	parse_redir(t_sh *sh, char *word, char **stock);
+void		ft_bzero(void *s, size_t n);
+void		pass_non_canonique(t_sh *sh);
+void		fleche_bas(t_sh *sh);
+void		fleche_haut(t_sh *sh);
+void		history_command(t_sh *sh, char **lst_arg, t_actual *actu);
+int			get_cursor(t_sh *sh, int *rc, int del);
+char		*parse_delimiteur(t_sh *sh, char *str);
+int			count_letter_env(t_sh *sh, char *spl, int *i);
+void		case_env(t_sh *sh, int *ij, char *s, char **to_fill);
+void		parse_redir(t_sh *sh, char *word, char **stock);
+
 #endif
