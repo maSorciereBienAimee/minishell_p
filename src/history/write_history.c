@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:07:29 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/22 14:39:10 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:06:59 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ static int	open_history(int fd, int *new_line)
 	return (fd);
 }
 
-void		write_history(t_hist *history)
+void	write_history(t_hist *history)
 {
-	int fd;
+	int	fd;
 	int	new_line;
 
-	if ((fd = open_history(fd, &new_line)) == -1)
+	fd = open_history(fd, &new_line);
+	if (fd == -1)
 	{
 		ft_putstr_fd("Error, failed to open `.minishell_history' file\n", 2);
-		return;
+		return ;
 	}
 	if (new_line == 0)
 		write(fd, "\n", 1);

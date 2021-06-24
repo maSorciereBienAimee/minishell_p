@@ -6,13 +6,13 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 15:28:37 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/14 16:57:57 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 16:14:47 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer_parser.h"
 
-int		is_space(char c)
+int	is_space(char c)
 {
 	if (c == '\r' || c == '\v' || c == '\f')
 		return (1);
@@ -21,7 +21,7 @@ int		is_space(char c)
 	return (0);
 }
 
-int		check_special_char(char c)
+int	check_special_char(char c)
 {
 	if (c == PIPE || c == DIRIN || c == DIROUT)
 		return (1);
@@ -41,7 +41,7 @@ static t_tokentype	search_type(char c)
 	return (End_cmd);
 }
 
-t_tokentype			get_type(char c)
+t_tokentype	get_type(char c)
 {
 	if (check_special_char(c) == 1)
 		return (search_type(c));
@@ -57,7 +57,7 @@ t_tokentype			get_type(char c)
 		return (Text);
 }
 
-int			is_text(char c)
+int	is_text(char c)
 {
 	if (is_space(c) == 1)
 		return (0);

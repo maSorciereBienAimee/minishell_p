@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:43:10 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/23 14:26:55 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:07:21 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	clean_elem(t_hist *elem)
 
 void	clean_history(t_hist *history)
 {
-	t_hist *head;
-	t_hist *tmp;
+	t_hist	*head;
+	t_hist	*tmp;
 
 	head = history;
 	while (history != NULL)

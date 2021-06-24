@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 18:42:19 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/14 16:57:34 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/24 16:11:36 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ static int	index_quote(char *str, char quote)
 
 static int	lexing_quote(t_token *token, char *buf)
 {
-	int size;
+	int	size;
 
-	if ((size = index_quote(buf, *buf)) == -1)
+	size = index_quote(buf, *buf);
+	if (size == -1)
 	{
 		ft_putstr_fd("minishell: syntax error: expected quote \' or \"\n", 2);
 		return (-1);
@@ -91,7 +92,8 @@ static int	tokenizer(char *buf, t_token *token)
 	}
 	else if (*buf == QUOTE || *buf == DQUOTE)
 	{
-		if ((size = lexing_quote(token, buf)) == -1)
+		size = lexing_quote(token, buf);
+		if (size == -1)
 			return (-1);
 	}
 	else
@@ -102,14 +104,17 @@ static int	tokenizer(char *buf, t_token *token)
 	return (size);
 }
 
-int			lexing(char *buf, t_token *token)
+int	lexing(char *buf, t_token *token)
 {
 	int		size;
 
 	if (*buf == '\0')
 		return (0);
 	else
-		if ((size = tokenizer(buf, token)) == -1)
+	{
+		size = tokenizer(buf, token);
+		if (size == -1)
 			return (-1);
+	}
 	return (lexing(buf + size, token));
 }
