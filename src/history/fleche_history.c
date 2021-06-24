@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 10:50:19 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/24 16:09:05 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	replace_delete(t_sh *sh)
 {
-	int len;
-	int ligne;
-	char *s;
-	int r;
-	int rc[2];
-	int mod;
+	int		len;
+	int		ligne;
+	char	*s;
+	int		r;
+	int		rc[2];
+	int		mod;
 
 	get_cursor(sh, rc, 0);
 	r = rc[0] - 1;
@@ -30,7 +30,7 @@ void	replace_delete(t_sh *sh)
 	{
 		if (len % sh->tty_col != 0)
 			ligne++;
-		r = rc[0] - ligne; 	
+		r = rc[0] - ligne;
 	}
 	s = tgetstr("cm", NULL);
 	tputs(tgoto(s, 13, r), 1, ft_putchar_b);
