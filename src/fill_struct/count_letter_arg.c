@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 12:51:18 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:41:58 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 08:25:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ void	boucle_count_letters(t_sh *sh, char *spl, int *i, int *dsb)
 			dsb[4] += var_exit_status(sh, i);
 		else
 		{
-			if (which_case_count(spl, i, dsb) == 1)
-				dsb[4] += count_letter_no_qu(sh, spl, i);
-			if (which_case_count(spl, i, dsb) == 2)
-				dsb[4] += count_letter_env(sh, spl, i);
-			if (which_case_count(spl, i, dsb) == 3)
+			if (which_case_count(spl, i, dsb) == 3 || dsb[5] == 1)
 				(dsb[4])++;
+			else if (which_case_count(spl, i, dsb) == 1)
+				dsb[4] += count_letter_no_qu(sh, spl, i);
+			else if (which_case_count(spl, i, dsb) == 2)
+				dsb[4] += count_letter_env(sh, spl, i);
 		}
 	}
 	else
@@ -116,12 +116,13 @@ void	boucle_count_letters(t_sh *sh, char *spl, int *i, int *dsb)
 	check_if_in_quote(*i, spl, dsb);
 }
 
-int	count_letters(t_sh *sh, char *spl, int *i)
+int	count_letters(t_sh *sh, char *spl, int *i, int no_env)
 {
 	int	j;
-	int	dsb[5];
+	int	dsb[6];
 
 	j = -1;
+	dsb[5] = no_env;
 	while (++j < 5)
 		dsb[j] = 0;
 	check_if_in_quote(*i, spl, dsb);

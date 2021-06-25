@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:33:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/07 10:19:15 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:32:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,23 @@ char	*my_realloc(t_sh *sh, char *path, int i)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	free(path);
 	return (new_path);
+}
+
+char	*copy_end_char(t_sh *sh, char *spl, int count, int i)
+{
+	char	*ret;
+	int		j;
+
+	ret = (char *)malloc(sizeof(char) * (count + 1));
+	if (!ret)
+		ft_error(sh, strerror(errno), NULL, NULL);
+	j = 0;
+	while (j < count)
+	{
+		ret[j] = spl[i];
+		j++;
+		i++;
+	}
+	ret[j] = '\0';
+	return (ret);
 }

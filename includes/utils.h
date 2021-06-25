@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:47:52 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:31:03 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_actual
 {
 	char			**str_arg;
+	char			**str_wenv;
 	int				arg_command;
 	int				pipe;
 	int				append;
@@ -51,6 +52,7 @@ typedef struct s_list_env
 
 typedef struct s_sh
 {
+	int				no_env;
 	int				tty_col;
 	int				tty_row;
 	int				init_cursor_r;
@@ -193,5 +195,6 @@ void		case_env(t_sh *sh, int *ij, char *s, char **to_fill);
 void		parse_redir(t_sh *sh, char *word, char **stock);
 void		my_exit_final(t_sh *sh);
 int			check_touche(t_sh *sh, char *b, int *j, int *i);
+char		*copy_end_char(t_sh *sh, char *spl, int count, int i);
 
 #endif

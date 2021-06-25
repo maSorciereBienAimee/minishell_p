@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:52:20 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/23 19:02:48 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:31:54 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,24 @@ t_gestion_sig	g_my_sig;
 
 char	*get_next_word(t_sh *sh, char *spl, int i)
 {
-	char	*ret;
-	int		count;
-	int		j;
+	int	count;
+	int	dsb[4];
 
+	count = -1;
+	while (++count < 4)
+		dsb[count] = 0;
 	count = 0;
 	while (spl[i] && (spl[i] == '<' || spl[i] == ' ' || spl[i] == '\t'))
 		i++;
-	while (spl[i] && ft_in(spl[i], " \t<>|;\n") == 0)
+	check_if_in_quote(i, spl, dsb);
+	while (end_arg(spl, i, dsb) == 0)
 	{
 		i++;
 		count++;
+		check_if_in_quote(i, spl, dsb);
 	}
 	i -= count;
-	ret = (char *)malloc(sizeof(char) * (count + 1));
-	if (!ret)
-		ft_error(sh, strerror(errno), NULL, NULL);
-	j = 0;
-	while (j < count)
-	{
-		ret[j] = spl[i];
-		j++;
-		i++;
-	}
-	ret[j] = '\0';
-	return (ret);
+	return (copy_end_char(sh, spl, count, i));
 }
 
 t_arg_redir	*create_arg_redir(t_sh *sh, char *spl, int *i, t_arg_redir *previus)

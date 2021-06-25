@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 15:54:42 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 08:40:56 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ void		env_command(t_sh *sh, char *spl, char **lst);
 void		cd_command(t_sh *sh, char *spl, t_actual *temp, char **lst);
 void		unset_command(t_sh *sh, char *spl, char **lst, t_actual *temp);
 void		export_command(t_sh *sh, char *spl, char **lst, t_actual *temp);
-int			count_letters(t_sh *sh, char *spl, int *i);
+int			count_letters(t_sh *sh, char *spl, int *i, int no_env);
 t_actual	*get_arg_of_cmd(t_sh *sh, char *spl, int *i);
 int			no_fork_exec(t_sh *sh, int j);
-//char		**get_redir_arg(t_sh *sh, char *word);
 
 #endif
