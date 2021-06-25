@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 19:03:23 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 19:28:35 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 12:08:08 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	cd_command(t_sh *sh, char *spl, t_actual *temp, char **lst)
 		ft_error(sh, "too many arguments", "cd", NULL);
 		return ;
 	}
+	if (temp->arg_command == 1)
+		ptr = get_lst_value_of(sh, "HOME");
 	if (ft_comp(lst[1], "-") == 0)
 		ptr = get_lst_value_of(sh, "OLDPWD");
 	else if (ft_comp(lst[1], "~") == 0)
