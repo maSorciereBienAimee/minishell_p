@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 17:04:35 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:13:30 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:50:09 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_touche(t_sh*sh, char *b, int *j, int *i)
 	k = 0;
 	while (k < 4)
 	{
-		if (b[k] == '\n' || b[k] == 4)
+		if (b[k] == '\n' || (b[k] == 4 && ft_comp("", sh->command) == 0))
 		{
 			write(g_my_sig.fd_out, "\n\r", 2);
 			return (1);
