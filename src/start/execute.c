@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:56:31 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:14:03 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 10:36:19 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	cmd_in_child(t_sh *sh, char *spl)
 	lst_arguments = all_arg(sh);
 	which_cmd(sh, spl, lst_arguments);
 	ft_free_tab(lst_arguments);
-	my_exit(sh);
+	my_exit(sh, NULL);
 }
 
 void	continue_parent(t_sh *sh, pid_t pid)
@@ -72,7 +72,7 @@ void	continue_parent(t_sh *sh, pid_t pid)
 			write(2, "Quit (core dumped)", 19);
 	}
 	g_my_sig.exec_pid = -2;
-	my_exit(sh);
+	my_exit(sh, NULL);
 }
 
 void	execute_cmd(t_sh *sh, char *spl)
