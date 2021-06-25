@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 12:48:58 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/18 14:59:12 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:34:50 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,38 @@ void	count_arg(t_sh *sh, char *s, int *count, int i)
 		}
 		while (s[i] && ((ft_in(s[i], "<>|\n \t") == 0)
 				|| (ft_in(s[i], "<>|\n \t") == 1
-					&& (q[0] % 2 != 0 || q[1] % 2 != 0))))
+					&& (q[3] == 1 || q[0] % 2 != 0 || q[1] % 2 != 0))))
 			check_if_in_quote(++i, s, q);
 	}
+}
+
+char	**sans_modif_arg(t_sh *sh, char *spl, int i, int count)
+{
+	char	**new;
+	int		j;
+	int		k;
+	int		letter;
+
+	new = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!new)
+		return (NULL);
+	new[count] = 0;
+	j = 0;
+	while (spl[i] && ((i == 0 || spl[i -1] != '\\')
+			&& ft_in(spl[i], "<>|\n") != 1) && j < count)
+	{
+		skip_space(spl, &i);
+		k = i;
+		letter = count_letters(sh, spl, &i, 0);
+		new[j] = (char *)malloc(sizeof(char) * (letter + 1));
+		if (!new[j])
+			return (NULL);
+		new[j][letter] = '\0';
+		sh->no_env = 1;
+		fill_arg_cmd(sh, spl, k, &new[j]);
+		j++;
+	}
+	return (new);
 }
 
 void	recup_arg(t_sh *sh, char *spl, int *i, t_actual *ptr)
@@ -51,11 +80,12 @@ void	recup_arg(t_sh *sh, char *spl, int *i, t_actual *ptr)
 	{
 		skip_space(spl, i);
 		k = *i;
-		letter = count_letters(sh, spl, i);
+		letter = count_letters(sh, spl, i, 0);
 		ptr->str_arg[j] = (char *)malloc(sizeof(char) * (letter + 1));
 		if (!ptr->str_arg[j])
 			ft_error(sh, strerror(errno), NULL, NULL);
 		ptr->str_arg[j][letter] = '\0';
+		sh->no_env = 0;
 		fill_arg_cmd(sh, spl, k, &ptr->str_arg[j]);
 		j++;
 	}
@@ -107,6 +137,9 @@ t_actual	*get_arg_of_cmd(t_sh *sh, char *spl, int *i)
 	ptr->arg_command = count;
 	ptr->str_arg = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!ptr->str_arg)
+		ft_error(sh, strerror(errno), NULL, NULL);
+	ptr->str_wenv = sans_modif_arg(sh, spl, *i, count);
+	if (!ptr->str_wenv)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	ptr->str_arg[count] = 0;
 	recup_arg(sh, spl, i, ptr);

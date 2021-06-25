@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 20:10:39 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 09:00:05 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@ int	append_b(t_sh *sh, char *spl, t_actual *stock)
 	t_actual	*temp;
 
 	temp = stock->next;
-	fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_APPEND, 00664);
-	if (fd_file == -1)
-	{		
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-		return (-1);
-	}
-	if (dup2(fd_file, 1) < 0)
-	{		
-		ft_error(sh, strerror(errno), NULL, NULL);
-		return (-1);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_APPEND, 00664);
+		if (fd_file == -1)
+		{		
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+			return (-1);
+		}
+		if (dup2(fd_file, 1) < 0)
+		{		
+			ft_error(sh, strerror(errno), NULL, NULL);
+			return (-1);
+		}
 	}
 	return (1);
 }
@@ -38,16 +43,21 @@ int	redir_out_b(t_sh *sh, char *spl, t_actual *stock)
 	t_actual	*temp;
 
 	temp = stock->next;
-	fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_TRUNC, 00664);
-	if (fd_file == -1)
-	{		
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-		return (-1);
-	}
-	if (dup2(fd_file, 1) < 0)
-	{		
-		ft_error(sh, strerror(errno), NULL, NULL);
-		return (-1);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_TRUNC, 00664);
+		if (fd_file == -1)
+		{		
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+			return (-1);
+		}
+		if (dup2(fd_file, 1) < 0)
+		{		
+			ft_error(sh, strerror(errno), NULL, NULL);
+			return (-1);
+		}
 	}
 	return (1);
 }
@@ -58,16 +68,21 @@ int	redir_in_b(t_sh *sh, char *spl, t_actual *stock)
 	t_actual	*temp;
 
 	temp = stock->next;
-	fd_file = open(temp->str_arg[0], O_RDONLY, 00664);
-	if (fd_file == -1)
-	{		
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-		return (-1);
-	}
-	if (dup2(fd_file, 0) < 0)
-	{		
-		ft_error(sh, strerror(errno), NULL, NULL);
-		return (-1);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_RDONLY, 00664);
+		if (fd_file == -1)
+		{		
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+			return (-1);
+		}
+		if (dup2(fd_file, 0) < 0)
+		{		
+			ft_error(sh, strerror(errno), NULL, NULL);
+			return (-1);
+		}
 	}
 	return (1);
 }

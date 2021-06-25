@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:35:12 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 14:06:04 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/25 08:53:05 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_free_lst_cmd(t_actual **lst)
 	{
 		temp = (*lst)->next;
 		ft_free_tab((*lst)->str_arg);
+		ft_free_tab((*lst)->str_wenv);
 		free(*lst);
 		*lst = temp;
 	}

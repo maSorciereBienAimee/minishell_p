@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 09:47:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/19 20:08:19 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 08:57:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ void	append(t_sh *sh, char *spl)
 	t_actual	*temp;
 
 	temp = sh->actu->next;
-	fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_APPEND, 00664);
-	if (fd_file == -1)
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-	if (dup2(fd_file, 1) < 0)
-		ft_error(sh, strerror(errno), NULL, NULL);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_APPEND, 00664);
+		if (fd_file == -1)
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+		if (dup2(fd_file, 1) < 0)
+			ft_error(sh, strerror(errno), NULL, NULL);
+	}
 }
 
 void	redir_out(t_sh *sh, char *spl)
@@ -31,11 +36,16 @@ void	redir_out(t_sh *sh, char *spl)
 	t_actual	*temp;
 
 	temp = sh->actu->next;
-	fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_TRUNC, 00664);
-	if (fd_file == -1)
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-	if (dup2(fd_file, 1) < 0)
-		ft_error(sh, strerror(errno), NULL, NULL);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_CREAT | O_RDWR | O_TRUNC, 00664);
+		if (fd_file == -1)
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+		if (dup2(fd_file, 1) < 0)
+			ft_error(sh, strerror(errno), NULL, NULL);
+	}
 }
 
 void	redir_in(t_sh *sh, char *spl)
@@ -44,11 +54,16 @@ void	redir_in(t_sh *sh, char *spl)
 	t_actual	*temp;
 
 	temp = sh->actu->next;
-	fd_file = open(temp->str_arg[0], O_RDONLY, 00664);
-	if (fd_file == -1)
-		ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
-	if (dup2(fd_file, 0) < 0)
-		ft_error(sh, strerror(errno), NULL, NULL);
+	if (ft_comp(temp->str_arg[0], "") == 0 && temp->str_wenv[0][0] == '$')
+		ft_error(sh, "ambiguous redirection", temp->str_wenv[0], NULL);
+	else
+	{
+		fd_file = open(temp->str_arg[0], O_RDONLY, 00664);
+		if (fd_file == -1)
+			ft_error(sh, strerror(errno), temp->str_arg[0], NULL);
+		if (dup2(fd_file, 0) < 0)
+			ft_error(sh, strerror(errno), NULL, NULL);
+	}
 }
 
 int	manage_redir(t_sh *sh, char *spl)

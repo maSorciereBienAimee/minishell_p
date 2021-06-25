@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:54:55 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:50:24 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 08:27:40 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ void	fill_arg_cmd(t_sh *sh, char *s, int i, char **to_fill)
 		{
 			if (s[ij[0] + 1] == '?')
 				case_exit_status(sh, ij, to_fill);
+			else if (which_case(s, ij, d) == 3 || sh->no_env == 1)
+				(*to_fill)[++(ij[1])] = s[(ij[0])++];
 			else if (which_case(s, ij, d) == 1)
 				env_no_quote(sh, s, ij, to_fill);
 			else if (which_case(s, ij, d) == 2)
 				case_env(sh, ij, s, to_fill);
-			else if (which_case(s, ij, d) == 3)
-				(*to_fill)[++(ij[1])] = s[(ij[0])++];
 		}
 		else
 			end_fill_arg(s, ij, d, to_fill);
