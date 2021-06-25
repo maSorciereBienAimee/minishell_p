@@ -6,19 +6,20 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:50:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 16:06:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 22:51:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
-int	replace_if_existe(t_sh *sh, char *name, char *value)
+int	replace_if_existe(t_sh *sh, char *name, char *value, int eq)
 {
 	while (sh->var_env && ft_comp(sh->var_env->name, name) != 0)
 		sh->var_env = sh->var_env->next;
 	if (sh->var_env != NULL)
 	{
 		sh->var_env->value = copy_char(sh, sh->var_env->value, value);
+		sh->var_env->equal = eq;
 		return (1);
 	}
 	return (0);
@@ -51,6 +52,18 @@ int	verify_name(t_sh *sh, char *name, char *group, char *cmd)
 	return (1);
 }
 
+int	eq(char *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst[i] && lst[i] != '=')
+		i++;
+	if (lst[i] == '=')
+		return (1);
+	return (0);
+}
+
 void	boucle_modif(t_sh *sh, char **lst, int i, int exp)
 {
 	char		*name;
@@ -69,7 +82,7 @@ void	boucle_modif(t_sh *sh, char **lst, int i, int exp)
 		}
 	}
 	value = get_value(sh, lst[i]);
-	if (replace_if_existe(sh, name, value) == 0)
+	if (replace_if_existe(sh, name, value, eq(lst[i])) == 0)
 	{
 		sh->var_env = stock;
 		new = create_new_env(sh, lst[i]);
