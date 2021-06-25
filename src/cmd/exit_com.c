@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:37:41 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/22 13:49:14 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/25 12:00:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	arg_is_invalid(char *arg)
 	int	i;
 
 	i = 0;
+	if (ft_in(arg[i], "0123456789-+") == 0)
+		return (1);
+	i++;
 	while (arg[i])
 	{
 		if (arg[i] != '0'
@@ -37,6 +40,37 @@ int	arg_is_invalid(char *arg)
 	return (0);
 }
 
+void	check_status_exit(t_sh *sh, int *i)
+{
+	if (*i >= 256)
+	{
+		while (*i >= 256)
+			*i = *i - 256;
+	}
+	else if (*i < 0)
+	{
+		while (*i < 0)
+			*i = 256 + *i;
+	}
+	sh->code = *i;
+}
+
+void	err_exit_numarg(char *cmd, char *pb)
+{
+	write(2, "minishell : ", 12);
+	if (cmd != NULL)
+	{
+		write(2, cmd, ft_len(cmd));
+		write(2, ": ", 2);
+	}
+	if (pb != NULL)
+	{
+		write(2, pb, ft_len(pb));
+		write(2, ": ", 2);
+	}
+	write(2, "numeric argument required\n", 26);
+}
+
 void	exit_command(t_sh *sh, char **lst, t_actual *temp)
 {
 	int	i;
@@ -45,8 +79,9 @@ void	exit_command(t_sh *sh, char **lst, t_actual *temp)
 	a = temp->arg_command;
 	if (a > 1 && arg_is_invalid(lst[1]) == 1)
 	{
-		ft_error(sh, "numeric qrgument required", lst[0], lst[1]);
-		sh->code = 128;
+		sh->code = 2;
+		sh->exit = 1;
+		err_exit_numarg(lst[0], lst[1]);
 		return ;
 	}
 	if (a >= 3)
@@ -60,7 +95,7 @@ void	exit_command(t_sh *sh, char **lst, t_actual *temp)
 	if (a == 2)
 	{
 		i = ft_atoi(lst[1]);
-		sh->code = i;
+		check_status_exit(sh, &i);
 	}
 	sh->exit = 1;
 }
