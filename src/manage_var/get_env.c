@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:14:32 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 16:26:25 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 16:03:16 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_name_env(t_sh *sh, t_list_env *ptr, char *envp)
 
 	i = 0;
 	j = -1;
-	while (envp[i] != '=')
+	while (envp[i] && envp[i] != '=')
 		i++;
 	ptr->name = (char *)malloc(sizeof(char) * (i + 1));
 	if (!ptr->name)
@@ -27,7 +27,6 @@ int	get_name_env(t_sh *sh, t_list_env *ptr, char *envp)
 	while (++j < i)
 		ptr->name[j] = envp[j];
 	ptr->name[i] = '\0';
-	i++;
 	return (i);
 }
 
@@ -37,13 +36,15 @@ void	get_value_env(t_sh *sh, t_list_env *ptr, char *envp, int i)
 	int	k;
 	int	l;
 
-	l = i;
+	l = i + 1;
 	k = 0;
 	j = -1;
-	while (envp[i] != '\0')
+	if (envp[i] == '\0')
+		k = 0;
+	else
 	{
-		i++;
-		k++;
+		while (envp[++i] != '\0')
+			k++;
 	}
 	ptr->value = (char *)malloc(sizeof(char) * (k + 1));
 	if (!ptr->value)
@@ -66,6 +67,10 @@ t_list_env	*create_new_env(t_sh *sh, char *envp)
 	if (!ptr)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	i = get_name_env(sh, ptr, envp);
+	if (envp[i] == '=')
+		ptr->equal = 1;
+	else
+		ptr->equal = 0;
 	get_value_env(sh, ptr, envp, i);
 	ptr->next = NULL;
 	return (ptr);

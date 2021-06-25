@@ -6,22 +6,39 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:22:39 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 16:35:45 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 16:06:20 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+
+void	fill_val_env_tab(t_sh *sh, int i, int j, int len)
+{
+	int	k;
+
+	k = -1;
+	while (sh->var_env->value[++k])
+	{
+		sh->tab_env[i][j] = sh->var_env->value[k];
+		j++;
+	}
+	sh->tab_env[i][len + 1] = '\0';
+}
 
 void	fill_tab_value(t_sh *sh, int i)
 {
 	int	len;
 	int	j;
 	int	k;
+	int	eq;
 
+	eq = 2;
+	if (ft_comp("", sh->var_env->value) == 0)
+		eq = 1;
 	j = 0;
 	k = -1;
 	len = ft_len(sh->var_env->name) + ft_len(sh->var_env->value);
-	sh->tab_env[i] = (char *)malloc(sizeof(char) * (len + 2));
+	sh->tab_env[i] = (char *)malloc(sizeof(char) * (len + eq));
 	if (!sh->tab_env[i])
 		ft_error(sh, strerror(errno), NULL, NULL);
 	while (sh->var_env->name[++k])
@@ -29,15 +46,12 @@ void	fill_tab_value(t_sh *sh, int i)
 		sh->tab_env[i][j] = sh->var_env->name[k];
 		j++;
 	}
-	sh->tab_env[i][j] = '=';
-	k = -1;
-	j++;
-	while (sh->var_env->value[++k])
-	{
-		sh->tab_env[i][j] = sh->var_env->value[k];
-		j++;
-	}
-	sh->tab_env[i][len + 1] = '\0';
+	if (sh->var_env->equal == 1)
+		sh->tab_env[i][j++] = '=';
+	if (eq == 2)
+		fill_val_env_tab(sh, i, j, len);
+	else
+		sh->tab_env[i][len] = '\0';
 }
 
 void	complete_tab(t_sh *sh)
