@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:50:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 17:09:45 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 16:06:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	verify_name(t_sh *sh, char *name, char *group, char *cmd)
 	i = 1;
 	while (name[i])
 	{
-		if (!(name[0] >= 'A' && name[0] <= 'Z')
-			&& !(name[0] >= 'a' && name[0] <= 'z')
-			&& !(name[0] >= '0' && name[0] <= '9')
-			&& name[0] != '_')
+		if (!(name[i] >= 'A' && name[i] <= 'Z')
+			&& !(name[i] >= 'a' && name[i] <= 'z')
+			&& !(name[i] >= '0' && name[i] <= '9')
+			&& name[i] != '_')
 		{
 			ft_error(sh, "invalid name", cmd, group);
 			return (-1);
@@ -87,7 +87,7 @@ void	modify_env(t_sh *sh, char **lst, int exp)
 
 	temp = sh->var_env;
 	i = 1;
-	while (lst[i] && is_name_eq_value(lst[i]) == 1)
+	while (lst[i])
 	{
 		sh->var_env = temp;
 		boucle_modif(sh, lst, i, exp);

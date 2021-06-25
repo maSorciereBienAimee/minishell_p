@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 10:35:11 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 16:02:07 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_list_env
 {
 	char				*name;
 	char				*value;
+	int					equal;
 	struct s_list_env	*next;
 }				t_list_env;
 

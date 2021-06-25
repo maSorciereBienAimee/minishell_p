@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:48:52 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 17:13:37 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 15:29:01 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ char	*get_name(t_sh *sh, char *str)
 
 	i = 0;
 	j = -1;
-	while (str[i] != '=')
-		i++;
+	if (!str || ft_comp("", str) == 0)
+		i = 0;
+	else
+	{
+		while (str[i] && str[i] != '=')
+			i++;
+	}
 	ret = (char *)malloc(sizeof(char) * (i + 1));
 	if (!ret)
 		ft_error(sh, strerror(errno), NULL, NULL);
@@ -52,13 +57,16 @@ char	*get_value(t_sh *sh, char *str)
 	int		stock;
 
 	i = 0;
-	j = 0;
 	k = -1;
-	while (str[i] != '=')
+	j = 0;
+	while (str[i] && str[i] != '=')
 		i++;
 	stock = i;
-	while (str[++i] != '\0')
-		j++;
+	if (str[i] != '\0')
+	{	
+		while (str[++i] != '\0')
+			j++;
+	}
 	i = stock;
 	ret = (char *)malloc(sizeof(char) * (j + 1));
 	if (!ret)
