@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:39:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/08 19:13:14 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 10:26:24 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	launch_exec_cmd_path(t_sh *sh, char *word, char **list_arg)
 	{
 		if (!path_complete[i + 1]
 			&& execve(path_complete[i], list_arg, sh->tab_env) == -1)
-			ft_error(sh, "command not found", word, NULL);
+			ft_error_cmd(sh, "command not found\n", word, NULL);
 		i++;
 	}
 	ft_free_tab(path);

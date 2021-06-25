@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:47:21 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 10:34:56 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void	wait_exit(t_sh *sh)
 	exit(sh->code);
 }
 
-void	my_exit(t_sh *sh)
+void	my_exit(t_sh *sh, char *word)
 {
 	int	status;
 
+	if (word != NULL)
+		free(word);
 	if (sh->if_redir_cur == 0)
 	{
 		my_free(sh);

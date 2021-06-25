@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 18:26:09 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 10:35:40 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	boucle_minishell(t_sh *sh, char *spl)
 	is_it_pipe(sh, spl);
 	while (sh->stop == 0)
 		manage_redir(sh, spl);
-	my_exit(sh);
+	my_exit(sh, NULL);
 }
 
 void	run_child(t_sh *sh, int j)
@@ -58,11 +58,7 @@ void	run_parent(t_sh *sh, pid_t pid)
 	g_my_sig.pid_suivant = pid;
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-	{
-		if (WEXITSTATUS(status))
-			write(2, "\n", 2);
 		sh->last_exit = WEXITSTATUS(status);
-	}
 	else if (WIFSIGNALED(status))
 	{
 		sh->last_exit = WTERMSIG(status) + 128;

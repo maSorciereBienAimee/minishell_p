@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 09:31:03 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/25 10:35:11 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ void		ft_putstr(char *str);
 void		ft_putstr_fd(char *str, int fd);
 int			ft_putchar_b(int c);
 char		*my_realloc(t_sh *sh, char *buff, int i);
-void		my_exit(t_sh *sh);
+void		my_exit(t_sh *sh, char *w);
 void		ft_error(t_sh *sh, char *str, char *cmd, char *pb);
+void		ft_error_cmd(t_sh *sh, char *str, char *cmd, char *pb);
 char		*stock_tab(t_sh *sh, char *my_tab, int i);
 int			ft_comp(char *str, char *str2);
 int			ft_in(char c, char *str);
