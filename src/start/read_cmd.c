@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 09:51:38 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/26 09:33:44 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	read_quit(t_sh *sh, int a, char *buff)
 	{
 		tcsetattr(0, TCSANOW, &sh->old_tty);
 		if (ft_comp("", sh->command) != 0)
-			write(g_my_sig.fd_out, "\n", 1);
-		write(g_my_sig.fd_out, "^C", 2);
+			write(2, "\n", 1);
+		write(2, "^C", 2);
 		kill(0, SIGINT);
 		sh->alloue[11] = 0;
 		sh->last_exit = 130;
@@ -68,7 +68,7 @@ int	get_command(t_sh *sh)
 	ij[0] = -1;
 	ij[1] = 0;
 	stop = 0;
-	write(1, "minishell $> ", 14);
+	write(2, "minishell $> ", 14);
 	while (++(ij[0]) < 4)
 		buff[ij[0]] = 0;
 	ij[0] = 2;

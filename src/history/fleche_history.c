@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 17:44:40 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/26 09:37:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	fleche_haut(t_sh *sh)
 			sh->history = sh->history->next;
 		if (sh->history != NULL)
 		{
-			write(0, sh->history->cmd, ft_len(sh->history->cmd));
+			write(g_my_sig.fd_out, sh->history->cmd, ft_len(sh->history->cmd));
 			sh->command = copy_char(sh, sh->command, sh->history->cmd);
 		}
 	}
