@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 14:55:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 21:16:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/26 09:33:56 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_readline(t_sh *sh, char **str, int *ij, char *buff)
 	if (!(*str))
 		ft_error(sh, strerror(errno), NULL, NULL);
 	(*str)[0] = '\0';
-	write(1, "> ", 2);
+	write(2, "> ", 2);
 	while (++(ij[0]) < 4)
 		buff[ij[0]] = 0;
 	ij[0] = 2;
