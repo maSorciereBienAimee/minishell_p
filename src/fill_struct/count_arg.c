@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 12:48:58 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 09:34:50 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 19:37:00 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**sans_modif_arg(t_sh *sh, char *spl, int i, int count)
 	{
 		skip_space(spl, &i);
 		k = i;
-		letter = count_letters(sh, spl, &i, 0);
+		letter = count_letters(sh, spl, &i, 1);
 		new[j] = (char *)malloc(sizeof(char) * (letter + 1));
 		if (!new[j])
 			return (NULL);
