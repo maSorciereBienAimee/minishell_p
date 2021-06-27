@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 19:03:23 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 12:08:08 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 19:19:10 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,35 @@ void	modifie_oldpwd(t_sh *sh)
 	transform_env_tab(sh);
 }
 
+int	set_var(t_sh *sh, t_actual *temp, char **lst, char **ptr)
+{
+	if (temp->arg_command == 1 || ft_comp(lst[1], "~") == 0)
+	{
+		*ptr = get_lst_value_of(sh, "HOME");
+		if (*ptr == NULL)
+		{
+			ft_error(sh, "HOME not defined", "cd", NULL);
+			return (-1);
+		}
+	}
+	else if (ft_comp(lst[1], "-") == 0)
+	{
+		*ptr = get_lst_value_of(sh, "OLDPWD");
+		if (*ptr == NULL)
+		{
+			ft_error(sh, "OLDPWD not defined", "cd", NULL);
+			return (-1);
+		}
+	}
+	if (*ptr != NULL)
+	{
+		if (chdir((const char *)*ptr) < 0)
+			return (-2);
+		return (1);
+	}
+	return (0);
+}
+
 void	cd_command(t_sh *sh, char *spl, t_actual *temp, char **lst)
 {
 	int		a;
@@ -82,17 +111,20 @@ void	cd_command(t_sh *sh, char *spl, t_actual *temp, char **lst)
 		ft_error(sh, "too many arguments", "cd", NULL);
 		return ;
 	}
-	if (temp->arg_command == 1)
-		ptr = get_lst_value_of(sh, "HOME");
-	if (ft_comp(lst[1], "-") == 0)
-		ptr = get_lst_value_of(sh, "OLDPWD");
-	else if (ft_comp(lst[1], "~") == 0)
-		ptr = get_lst_value_of(sh, "HOME");
-	if (ptr != NULL)
-		a = chdir((const char *)ptr);
-	else
-		a = chdir((const char *)lst[1]);
+	a = set_var(sh, temp, lst, &ptr);
 	if (a < 0)
-		ft_error(sh, strerror(errno), "cd", lst[1]);
+	{
+		if (a == -2)
+			ft_error(sh, strerror(errno), "cd", NULL);
+		return ;
+	}
+	else if (a == 0)
+	{
+		if (chdir((const char *)lst[1]) < 0)
+		{
+			ft_error(sh, strerror(errno), "cd", lst[1]);
+			return ;
+		}
+	}
 	modifie_oldpwd(sh);
 }

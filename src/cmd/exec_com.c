@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:39:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 10:26:24 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 18:30:08 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	launch_exec_cmd_path(t_sh *sh, char *word, char **list_arg)
 	{
 		if (!path_complete[i + 1]
 			&& execve(path_complete[i], list_arg, sh->tab_env) == -1)
-			ft_error_cmd(sh, "command not found\n", word, NULL);
+			ft_error_cmd(sh, "command not found\n", word, 127);
 		i++;
 	}
 	ft_free_tab(path);
@@ -95,9 +95,9 @@ void	launch_exec(t_sh *sh, char *spl, char *word, char **list_arg)
 	{
 		stat(word, &stock);
 		if (S_ISDIR(stock.st_mode))
-			ft_error(sh, "is a directory", word, NULL);
+			ft_error_cmd(sh, "is a directory\n", word, 126);
 		if (execve(word, list_arg, sh->tab_env) == -1)
-			ft_error(sh, strerror(errno), word, NULL);
+			ft_error_cmd(sh, "No such file or directory\n", word, 127);
 	}
 	else
 		launch_exec_cmd_path(sh, word, list_arg);

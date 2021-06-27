@@ -6,24 +6,19 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:36:16 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 10:36:48 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 18:29:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-void	ft_error_cmd(t_sh *sh, char *str, char *cmd, char *pb)
+void	ft_error_cmd(t_sh *sh, char *str, char *cmd, int i)
 {
-	sh->code = 127;
+	sh->code = i;
 	write(2, "minishell : ", 12);
 	if (cmd != NULL)
 	{
 		write(2, cmd, ft_len(cmd));
-		write(2, ": ", 2);
-	}
-	if (pb != NULL)
-	{
-		write(2, pb, ft_len(pb));
 		write(2, ": ", 2);
 	}
 	write(2, str, ft_len(str));
