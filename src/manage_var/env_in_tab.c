@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:22:39 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 16:06:20 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 15:58:28 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	fill_tab_value(t_sh *sh, int i)
 	int	eq;
 
 	eq = 2;
-	if (ft_comp("", sh->var_env->value) == 0)
+	if (sh->var_env->equal == 0)
 		eq = 1;
 	j = 0;
 	k = -1;

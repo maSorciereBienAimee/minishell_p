@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:10:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 10:35:40 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 15:05:26 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ void	run_parent(t_sh *sh, pid_t pid)
 	g_my_sig.pid_suivant = pid;
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == 130)
+			write(2, "\n", 1);
 		sh->last_exit = WEXITSTATUS(status);
+	}
 	else if (WIFSIGNALED(status))
 	{
 		sh->last_exit = WTERMSIG(status) + 128;
