@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/26 09:37:25 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 16:20:59 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	replace_delete(t_sh *sh)
 
 	get_cursor(sh, rc, 0);
 	r = rc[0] - 1;
-	len = ft_len(sh->command) + 13;
+	len = ft_len(sh->command) + (sh->init_cursor_c - 1);
 	sh->tty_col = tgetnum("co");
 	ligne = len / sh->tty_col;
 	if (ligne >= 1)
@@ -32,7 +32,7 @@ void	replace_delete(t_sh *sh)
 		r = rc[0] - ligne;
 	}
 	s = tgetstr("cm", NULL);
-	tputs(tgoto(s, 13, r), 1, ft_putchar_b);
+	tputs(tgoto(s, sh->init_cursor_c - 1, r), 1, ft_putchar_b);
 	s = tgetstr("cd", NULL);
 	tputs(s, 1, ft_putchar_b);
 }
@@ -62,6 +62,7 @@ void	fleche_haut(t_sh *sh)
 			sh->command = copy_char(sh, sh->command, sh->history->cmd);
 		}
 	}
+	sh->in_read = 1;
 }
 
 void	fleche_bas(t_sh *sh)
