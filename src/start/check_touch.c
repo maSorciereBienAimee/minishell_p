@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 17:04:35 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 16:21:09 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 17:49:33 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	print_del(t_sh *sh, int *j, int *i)
 
 void	print_letter(t_sh *sh, char b, int *j, int *i)
 {
-	sh->in_read = 0;
 	if (b >= 32)
 	{
 		if (b == 127)

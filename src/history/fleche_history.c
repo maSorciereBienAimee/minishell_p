@@ -6,15 +6,14 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 16:20:59 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 18:04:48 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-void	replace_delete(t_sh *sh)
+void	replace_delete(t_sh *sh, int len)
 {
-	int		len;
 	int		ligne;
 	char	*s;
 	int		r;
@@ -35,17 +34,22 @@ void	replace_delete(t_sh *sh)
 	tputs(tgoto(s, sh->init_cursor_c - 1, r), 1, ft_putchar_b);
 	s = tgetstr("cd", NULL);
 	tputs(s, 1, ft_putchar_b);
-}
-
-void	fleche_haut(t_sh *sh)
-{
-	replace_delete(sh);
-	if (!sh->history)
-		return ;
 	if (sh->in_read == 0)
 	{
 		while (sh->history->next != NULL)
 			sh->history = sh->history->next;
+	}
+}
+
+void	fleche_haut(t_sh *sh)
+{
+	int	len;
+
+	if (!sh->history)
+		return ;
+	replace_delete(sh, len);
+	if (sh->in_read == 0)
+	{
 		if (sh->history != NULL)
 		{
 			write(g_my_sig.fd_out, sh->history->cmd, ft_len(sh->history->cmd));
@@ -67,9 +71,11 @@ void	fleche_haut(t_sh *sh)
 
 void	fleche_bas(t_sh *sh)
 {
-	replace_delete(sh);
+	int	len;
+
 	if (!sh->history)
 		return ;
+	replace_delete(sh, len);
 	if (sh->history->next != NULL)
 	{
 		sh->history = sh->history->next;
@@ -88,5 +94,6 @@ void	fleche_bas(t_sh *sh)
 		}
 		sh->alloue[1] = 1;
 		sh->command[0] = '\0';
+		sh->in_read = 0;
 	}
 }
