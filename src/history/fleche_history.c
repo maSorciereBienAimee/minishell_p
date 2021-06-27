@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:32:14 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 16:20:59 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/27 17:49:09 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ void	fleche_bas(t_sh *sh)
 	replace_delete(sh);
 	if (!sh->history)
 		return ;
+	if (sh->in_read == 0)
+	{
+		while (sh->history->next != NULL)
+			sh->history = sh->history->next;
+	}
 	if (sh->history->next != NULL)
 	{
 		sh->history = sh->history->next;
@@ -89,4 +94,5 @@ void	fleche_bas(t_sh *sh)
 		sh->alloue[1] = 1;
 		sh->command[0] = '\0';
 	}
+	sh->in_read = 1;
 }
