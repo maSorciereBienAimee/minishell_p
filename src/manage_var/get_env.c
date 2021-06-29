@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:14:32 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/29 14:21:25 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:31:18 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list_env	*create_new_env(t_sh *sh, char *envp)
 void	get_origin_path(t_sh *sh, t_list_env *temp)
 {
 	t_list_env	*stock;
-	int		stop;
+	int			stop;
 
 	stop = 0;
 	stock = temp;
@@ -99,7 +99,7 @@ void	get_origin_path(t_sh *sh, t_list_env *temp)
 		}
 		if (stock->next != NULL)
 			stock = stock->next;
-		else 
+		else
 			stop = 1;
 	}
 }

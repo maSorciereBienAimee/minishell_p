@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:39:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/29 13:43:15 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:45:26 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	launch_exec_cmd_path(t_sh *sh, char *word, char **list_arg)
 
 	i = 0;
 	value = get_lst_value_of(sh, "PATH");
-	if (value == NULL)
+	if (value == NULL || ft_comp(value, "") == 0)
 		ft_error_cmd(sh, "No such file or directory\n", word, 127);
 	path = ft_split(value, ':');
 	if (path == NULL)
