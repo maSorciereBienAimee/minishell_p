@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:07:29 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/29 15:07:01 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/29 15:10:12 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,7 @@ static int	open_history(int fd, int *new_line, char *cwd_path)
 	return (fd);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void	write_history(t_hist *history, char *pwd)
-=======
 void	write_history(t_hist *history, char *cwd_path)
->>>>>>> correct history
-=======
-void	write_history(t_hist *history, char *cwd_path)
->>>>>>> 16c970441cc98ae495a8cd197261f47ec6528b20
 {
 	int	fd;
 	int	new_line;
