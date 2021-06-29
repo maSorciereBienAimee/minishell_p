@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 20:34:26 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/29 14:25:41 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 16:11:39 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	my_exit_final(t_sh *sh)
 	write(2, "exit\n", 5);
 	write_history(sh->history, sh->pwd_path);
 	free_history(sh->history);
-	if (sh->alloue[13] == 1)
-		free(sh->home_path);
-	if (sh->alloue[14] == 1)
-		free(sh->pwd_path);
+	free(sh->home_path);
+	free(sh->pwd_path);
 	exit(sh->last_exit);
 }
 
