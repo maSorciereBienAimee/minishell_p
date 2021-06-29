@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:07:29 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/29 14:26:51 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:48:31 by nayache          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,49 @@ static void	check_nl(int fd, int *new_line)
 	}
 }
 
-static int	open_history(int fd, int *new_line)
+static char *create_history_path(char *cwd_path)
 {
+	char *path;
+
+	path = ft_strjoin(cwd_path, "/.minishell_history");
+	return (path);
+}
+
+static int	open_history(int fd, int *new_line, char *cwd_path)
+{
+	char *path;
+
 	*new_line = 0;
-	fd = open(".minishell_history", O_RDONLY);
+	if (cwd_path == NULL)
+		return (-1);
+	path = create_history_path(cwd_path);
+	if (path == NULL)
+		return (-1);
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
 		*new_line = 1;
-		fd = open(".minishell_history", O_RDWR | O_CREAT, S_IRWXU);
+		fd = open(path, O_RDWR | O_CREAT, S_IRWXU);
+		free(path);
 		return (fd);
 	}
 	check_nl(fd, new_line);
 	close(fd);
-	fd = open(".minishell_history", O_RDWR | O_APPEND, S_IRWXU);
+	fd = open(path, O_RDWR | O_APPEND, S_IRWXU);
+	free(path);
 	return (fd);
 }
 
+<<<<<<< HEAD
 void	write_history(t_hist *history, char *pwd)
+=======
+void	write_history(t_hist *history, char *cwd_path)
+>>>>>>> correct history
 {
 	int	fd;
 	int	new_line;
 
-	fd = open_history(fd, &new_line);
+	fd = open_history(fd, &new_line, cwd_path);
 	if (fd == -1)
 	{
 		ft_putstr_fd("Error, failed to open `.minishell_history' file\n", 2);
