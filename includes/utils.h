@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/29 14:25:47 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 16:07:55 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,4 +200,6 @@ void		parse_redir(t_sh *sh, char *word, char **stock);
 void		my_exit_final(t_sh *sh);
 int			check_touche(t_sh *sh, char *b, int *j, int *i);
 char		*copy_end_char(t_sh *sh, char *spl, int count, int i);
+void		ft_free_list_red(t_redir_cur **lst);
+
 #endif

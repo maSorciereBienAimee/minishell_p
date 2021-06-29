@@ -47,6 +47,7 @@ SRCS = src/start/main.c \
        src/utils/ft_bzero.c \
        src/utils/ft_split.c \
        src/utils/free_utils.c \
+       src/utils/free_utils_b.c \
        src/utils/term_utils.c \
        src/utils/print_error.c \
        src/utils/other_utils.c \

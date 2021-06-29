@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:37:41 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 18:20:48 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 16:21:04 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	err_exit_numarg(char *cmd, char *pb)
 	write(2, "numeric argument required\n", 26);
 }
 
-void	quit_or_not(t_sh *sh, char **lst, int code)
+void	quit_or_not(t_sh *sh, char **lst, int code, t_actual *temp)
 {
 	if (sh->parent == 1)
 	{
 		sh->last_exit = code;
+		dup2(sh->save_stdout, 1);
+		ft_free_lst_cmd(&temp);
 		ft_free_tab(lst);
 		my_free(sh);
 		my_exit_final(sh);
@@ -109,5 +111,5 @@ void	exit_command(t_sh *sh, char **lst, t_actual *temp)
 		i = ft_atoi(lst[1]);
 		check_status_exit(sh, &i);
 	}
-	quit_or_not(sh, lst, sh->code);
+	quit_or_not(sh, lst, sh->code, temp);
 }
