@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:14:32 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 16:03:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:21:25 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,35 @@ t_list_env	*create_new_env(t_sh *sh, char *envp)
 	return (ptr);
 }
 
-void	init_variable(t_sh *sh, char **envp)
+void	get_origin_path(t_sh *sh, t_list_env *temp)
+{
+	t_list_env	*stock;
+	int		stop;
+
+	stop = 0;
+	stock = temp;
+	sh->home_path = NULL;
+	sh->pwd_path = NULL;
+	while (stop == 0)
+	{
+		if (ft_comp("HOME", stock->name) == 0)
+		{
+			sh->home_path = copy_char(sh, sh->home_path, stock->value);
+			sh->alloue[13] = 1;
+		}
+		if (ft_comp("PWD", stock->name) == 0)
+		{
+			sh->pwd_path = copy_char(sh, sh->pwd_path, stock->value);
+			sh->alloue[14] = 1;
+		}
+		if (stock->next != NULL)
+			stock = stock->next;
+		else 
+			stop = 1;
+	}
+}
+
+void	init_variable(t_sh *sh, char **envp, int a)
 {
 	int			i;
 	t_list_env	*temp;
@@ -90,4 +118,6 @@ void	init_variable(t_sh *sh, char **envp)
 		lst_add_back(&sh->var_env, temp);
 		i++;
 	}
+	if (a == 1)
+		get_origin_path(sh, sh->var_env);
 }

@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:33:36 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 16:40:08 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:22:07 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	prepare_command(t_sh *sh)
 	tcsetattr(0, TCSANOW, &sh->old_tty);
 	add_line_to_history(sh->history, sh->command);
 	if (start_parsing(sh->command) == -1)
+	{
+		sh->last_exit = 2;
 		return (-1);
+	}
 	sh->spl = ft_split_commande(sh, sh->command, ';');
 	get_redir_cur(sh);
 	return (0);

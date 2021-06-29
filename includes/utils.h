@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 23:04:30 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 18:31:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:25:47 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_sh
 	t_list_env		*var_env;
 	char			**tab_env;
 	int				size_path;
-	int				alloue[13];
+	int				alloue[15];
 	int				fd_pipe[2];
 	int				fd_redir[2];
 	int				fd_in;
@@ -86,6 +86,8 @@ typedef struct s_sh
 	int				stop;
 	int				test_exec;
 	int				if_redir_cur;
+	char			*home_path;
+	char			*pwd_path;
 	t_redir_cur		*redir;
 	t_redir_cur		*stock_redir;
 	t_arg_redir		*stock_redir_arg;
@@ -198,5 +200,4 @@ void		parse_redir(t_sh *sh, char *word, char **stock);
 void		my_exit_final(t_sh *sh);
 int			check_touche(t_sh *sh, char *b, int *j, int *i);
 char		*copy_end_char(t_sh *sh, char *spl, int count, int i);
-
 #endif

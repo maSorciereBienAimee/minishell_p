@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 16:07:29 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/24 16:00:16 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:14:40 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_sh(t_sh *sh, char **tab_env)
 	int	j;
 
 	j = -1;
-	while (++j < 13)
+	while (++j < 15)
 		sh->alloue[j] = 0;
 	sh->path = (char *)malloc(sizeof(char) * 1);
 	if (!sh->path)
@@ -65,7 +65,7 @@ void	init_sh(t_sh *sh, char **tab_env)
 		ft_error(sh, strerror(errno), NULL, NULL);
 	sh->spl[0] = 0;
 	sh->alloue[2] = 1;
-	init_variable(sh, tab_env);
+	init_variable(sh, tab_env, 0);
 	transform_env_tab(sh);
 	init_sh_bis(sh);
 	sh->fd_redir[0] = 0;
@@ -95,7 +95,11 @@ void	increase_shlvl(t_sh *sh)
 void	init_term(t_sh *sh, char *name)
 {
 	int	ret;
+	int	j;
 
+	j = -1;
+	while (++j < 15)
+		sh->alloue[j] = 0;
 	if (name == NULL)
 	{
 		ft_error(sh, "'TERM' not set", NULL, NULL);
@@ -129,7 +133,7 @@ void	init_origin(t_sh *sh, char **envp, char *name)
 	sh->exit = 0;
 	sh->last_exit = 0;
 	sh->fils_pid = -2;
-	init_variable(sh, envp);
+	init_variable(sh, envp, 1);
 	sh->tab_env = (char **)malloc(sizeof(char *) * 1);
 	if (!sh->tab_env)
 		ft_error(sh, strerror(errno), NULL, NULL);
