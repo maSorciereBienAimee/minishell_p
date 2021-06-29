@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:48:52 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 15:29:01 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 14:35:31 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	print_env(t_sh *sh)
 {
 	while (sh->var_env)
 	{
-		write(1, sh->var_env->name, ft_len(sh->var_env->name));
-		write(1, "=", 1);
-		write(1, sh->var_env->value, ft_len(sh->var_env->value));
-		write(1, "\n", 1);
+		if (sh->var_env->equal == 1)
+		{
+			write(1, sh->var_env->name, ft_len(sh->var_env->name));
+			write(1, "=", 1);
+			write(1, sh->var_env->value, ft_len(sh->var_env->value));
+			write(1, "\n", 1);
+		}
 		sh->var_env = sh->var_env->next;
 	}
 }

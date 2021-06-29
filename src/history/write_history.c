@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:07:29 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/29 15:10:12 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/29 15:49:28 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	check_nl(int fd, int *new_line)
 	}
 }
 
-static char *create_history_path(char *cwd_path)
+static char	*create_history_path(char *cwd_path)
 {
-	char *path;
+	char	*path;
 
 	path = ft_strjoin(cwd_path, "/.minishell_history");
 	return (path);
@@ -41,7 +41,7 @@ static char *create_history_path(char *cwd_path)
 
 static int	open_history(int fd, int *new_line, char *cwd_path)
 {
-	char *path;
+	char	*path;
 
 	*new_line = 0;
 	if (cwd_path == NULL)
