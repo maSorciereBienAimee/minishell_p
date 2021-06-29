@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:39:44 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/29 17:18:33 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:25:09 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	launch_exec_cmd_path(t_sh *sh, char *word, char **list_arg)
 void	launch_exec(t_sh *sh, char *spl, char *word, char **list_arg)
 {
 	struct stat	stock;
-	
+
 	if (!word)
 		return ;
 	if (word[0] == '/' || word[0] == '.')
