@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:15:01 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/25 08:40:56 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 13:59:32 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			get_command(t_sh *sh);
 void		actual_path(t_sh *sh);
 void		init_sh(t_sh *sh, char **envp);
 void		init_origin(t_sh *sh, char **envp, char *name);
-void		init_variable(t_sh *sh, char **envp);
+void		init_variable(t_sh *sh, char **envp, int a);
 t_list_env	*create_new_env(t_sh *sh, char *envp);
 void		get_value_env(t_sh *sh, t_list_env *ptr, char *envp, int i);
 int			get_name_env(t_sh *sh, t_list_env *ptr, char *envp);

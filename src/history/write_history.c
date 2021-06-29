@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 14:07:29 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/24 16:06:59 by nayache          ###   ########.fr       */
+/*   Updated: 2021/06/29 14:26:51 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	open_history(int fd, int *new_line)
 	return (fd);
 }
 
-void	write_history(t_hist *history)
+void	write_history(t_hist *history, char *pwd)
 {
 	int	fd;
 	int	new_line;
