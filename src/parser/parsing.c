@@ -6,7 +6,7 @@
 /*   By: nayache <nayache@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:33:26 by nayache           #+#    #+#             */
-/*   Updated: 2021/06/25 15:48:01 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:11:44 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	state_machine(t_state state, t_tokentype type)
 {
 	const int	machine[5][6] =
 	{
-		{EAT, START, ERROR, OUTPUT, ERROR, ERROR},
+		{EAT, START, INPUT, OUTPUT, ERROR, ERROR},
 		{EAT, EAT, INPUT, OUTPUT, FLUX, START},
 		{EAT, FLUX, FLUX, ERROR, ERROR, ERROR},
 		{EAT, FLUX, ERROR, FLUX, ERROR, ERROR},
