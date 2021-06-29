@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 12:48:58 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/27 19:37:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:54:59 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	count_arg(t_sh *sh, char *s, int *count, int i)
 	j = -1;
 	while (++j < 4)
 		q[j] = 0;
-	while (s[i] && ((i == 0 || s[i -1] != '\\') && ft_in(s[i], "<>|\n") != 1))
+	while (s[i] && ((i == 0 || s[i - 1] != '\\') && ft_in(s[i], "<>|\n") != 1))
 	{
 		while ((s[i] == ' ' || s[i] == '\t') && s[i] != '\0')
 			i++;
@@ -51,7 +51,7 @@ char	**sans_modif_arg(t_sh *sh, char *spl, int i, int count)
 		return (NULL);
 	new[count] = 0;
 	j = 0;
-	while (spl[i] && ((i == 0 || spl[i -1] != '\\')
+	while (spl[i] && ((i == 0 || spl[i - 1] != '\\')
 			&& ft_in(spl[i], "<>|\n") != 1) && j < count)
 	{
 		skip_space(spl, &i);
@@ -75,7 +75,7 @@ void	recup_arg(t_sh *sh, char *spl, int *i, t_actual *ptr)
 	int	letter;
 
 	j = 0;
-	while (spl[*i] && ((*i == 0 || spl[*i -1] != '\\')
+	while (spl[*i] && ((*i == 0 || spl[*i - 1] != '\\')
 			&& ft_in(spl[*i], "<>|\n") != 1) && j < ptr->arg_command)
 	{
 		skip_space(spl, i);

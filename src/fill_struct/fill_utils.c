@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:46:31 by ssar              #+#    #+#             */
-/*   Updated: 2021/06/15 22:47:46 by ssar             ###   ########.fr       */
+/*   Updated: 2021/06/29 17:53:42 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	case_exit_status(t_sh *sh, int *ij, char **to_fill)
 	int		k;
 
 	val = ft_itoa(sh->last_exit);
-	ij[0] +=2;
+	ij[0] += 2;
 	k = -1;
 	while (val[++k])
 		(*to_fill)[++(ij[1])] = val[k];
